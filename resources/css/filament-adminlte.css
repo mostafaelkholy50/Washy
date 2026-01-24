@@ -1,0 +1,346 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* AdminLTE-Inspired Custom Styles for Filament */
+
+/* Color Variables - AdminLTE Inspired */
+:root {
+    --adminlte-primary: #0d6efd;
+    --adminlte-success: #20c997;
+    --adminlte-warning: #ffc107;
+    --adminlte-danger: #dc3545;
+    --adminlte-info: #17a2b8;
+    --adminlte-secondary: #6c757d;
+    
+    /* Gradient Colors */
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-success: linear-gradient(135deg, #0ba360 0%, #3cba92 100%);
+    --gradient-warning: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-danger: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    --gradient-info: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+/* Small Box Widgets - AdminLTE Style */
+.small-box {
+    border-radius: 0.5rem;
+    box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
+    position: relative;
+    display: block;
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+
+.small-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,.2), 0 6px 20px rgba(0,0,0,.15);
+}
+
+.small-box > .inner {
+    padding: 1.5rem;
+}
+
+.small-box h3 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    white-space: nowrap;
+    padding: 0;
+}
+
+.small-box p {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.small-box .small-box-footer {
+    position: relative;
+    text-align: center;
+    padding: 0.5rem 0;
+    color: rgba(255,255,255,.8);
+    display: block;
+    z-index: 10;
+    background-color: rgba(0,0,0,.1);
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.small-box .small-box-footer:hover {
+    background-color: rgba(0,0,0,.15);
+    color: #fff;
+}
+
+.small-box .small-box-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 0;
+    font-size: 70px;
+    color: rgba(0,0,0,.15);
+    transition: transform 0.3s linear;
+}
+
+.small-box:hover .small-box-icon {
+    transform: scale(1.1);
+}
+
+/* Color Variants for Small Boxes */
+.small-box.bg-primary {
+    background-color: var(--adminlte-primary) !important;
+    color: white;
+}
+
+.small-box.bg-success {
+    background-color: var(--adminlte-success) !important;
+    color: white;
+}
+
+.small-box.bg-warning {
+    background-color: var(--adminlte-warning) !important;
+    color: #1f2d3d;
+}
+
+.small-box.bg-danger {
+    background-color: var(--adminlte-danger) !important;
+    color: white;
+}
+
+.small-box.bg-info {
+    background-color: var(--adminlte-info) !important;
+    color: white;
+}
+
+/* Gradient Variants */
+.small-box.bg-gradient-primary {
+    background: var(--gradient-primary) !important;
+    color: white;
+}
+
+.small-box.bg-gradient-success {
+    background: var(--gradient-success) !important;
+    color: white;
+}
+
+.small-box.bg-gradient-warning {
+    background: var(--gradient-warning) !important;
+    color: white;
+}
+
+.small-box.bg-gradient-danger {
+    background: var(--gradient-danger) !important;
+    color: white;
+}
+
+.small-box.bg-gradient-info {
+    background: var(--gradient-info) !important;
+    color: white;
+}
+
+/* Filament Card Customization */
+.fi-section-content-ctn {
+    border-radius: 0.5rem;
+    box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
+}
+
+/* Filament Stats Widget Enhancement */
+.fi-wi-stats-overview-stat {
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.fi-wi-stats-overview-stat:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,.2);
+}
+
+/* Colorful Badges */
+.badge-primary {
+    background-color: var(--adminlte-primary);
+    color: white;
+}
+
+.badge-success {
+    background-color: var(--adminlte-success);
+    color: white;
+}
+
+.badge-warning {
+    background-color: var(--adminlte-warning);
+    color: #1f2d3d;
+}
+
+.badge-danger {
+    background-color: var(--adminlte-danger);
+    color: white;
+}
+
+.badge-info {
+    background-color: var(--adminlte-info);
+    color: white;
+}
+
+/* Info Box Widget */
+.info-box {
+    box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
+    border-radius: 0.5rem;
+    background-color: #fff;
+    display: flex;
+    margin-bottom: 1rem;
+    min-height: 80px;
+    padding: 0.5rem;
+    position: relative;
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+
+.info-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,.2);
+}
+
+.info-box .info-box-icon {
+    border-radius: 0.5rem;
+    align-items: center;
+    display: flex;
+    font-size: 2rem;
+    justify-content: center;
+    text-align: center;
+    width: 80px;
+}
+
+.info-box .info-box-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.5;
+    flex: 1;
+    padding: 0 10px;
+}
+
+.info-box .info-box-text {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.info-box .info-box-number {
+    display: block;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+/* Gradient Cards */
+.card-gradient-primary {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+.card-gradient-success {
+    background: var(--gradient-success);
+    color: white;
+}
+
+.card-gradient-warning {
+    background: var(--gradient-warning);
+    color: white;
+}
+
+.card-gradient-danger {
+    background: var(--gradient-danger);
+    color: white;
+}
+
+.card-gradient-info {
+    background: var(--gradient-info);
+    color: white;
+}
+
+/* Filament Table Enhancements */
+.fi-ta-table {
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+/* Filament Header Customization */
+.fi-topbar {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Custom Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Animated Icons */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.icon-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .small-box h3 {
+        font-size: 1.6rem;
+    }
+    
+    .small-box .small-box-icon {
+        font-size: 50px;
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .info-box {
+        background-color: #1f2937;
+    }
+    
+    .small-box .small-box-icon {
+        color: rgba(255,255,255,.15);
+    }
+}
+
+/* Filament Specific Overrides */
+.fi-main {
+    background-color: #f4f6f9;
+}
+
+.dark .fi-main {
+    background-color: #1a202c;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

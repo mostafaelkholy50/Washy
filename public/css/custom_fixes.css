@@ -1,0 +1,36 @@
+/* Fix for Team Member Images */
+.team-wrap img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+/* Fix for Portfolio and Blog Images */
+.image-holder {
+    height: 250px; /* Fixed height for consistency */
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.image-holder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Ensure images inside anchors also fit */
+.image-holder a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Fix for Service Icons if they are images (though they seem to be fonts) */
+/* .service-icon img { ... } */
+
+/* General safe guard for other images in grids */
+.white-wrap img {
+    max-width: 100%;
+}

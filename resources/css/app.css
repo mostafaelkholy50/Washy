@@ -1,0 +1,808 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* AdminLTE-Inspired Custom Styles */
+
+/* Color Variables - AdminLTE Inspired */
+:root {
+    --adminlte-primary: #0d6efd;
+    --adminlte-success: #20c997;
+    --adminlte-warning: #ffc107;
+    --adminlte-danger: #dc3545;
+    --adminlte-info: #17a2b8;
+    --adminlte-secondary: #6c757d;
+    
+    /* Gradient Colors */
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-success: linear-gradient(135deg, #0ba360 0%, #3cba92 100%);
+    --gradient-warning: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-danger: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    --gradient-info: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+/* Small Box Widgets - AdminLTE Style */
+.small-box {
+    border-radius: 0.5rem;
+    box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
+    position: relative;
+    display: block;
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+
+.small-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,.2), 0 6px 20px rgba(0,0,0,.15);
+}
+
+.small-box > .inner {
+    padding: 1.5rem;
+}
+
+.small-box h3 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    white-space: nowrap;
+    padding: 0;
+}
+
+.small-box p {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.small-box .small-box-footer {
+    position: relative;
+    text-align: center;
+    padding: 0.5rem 0;
+    color: rgba(255,255,255,.8);
+    display: block;
+    z-index: 10;
+    background-color: rgba(0,0,0,.1);
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.small-box .small-box-footer:hover {
+    background-color: rgba(0,0,0,.15);
+    color: #fff;
+}
+
+.small-box .small-box-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 0;
+    font-size: 70px;
+    color: rgba(0,0,0,.15);
+    transition: transform 0.3s linear;
+}
+
+.small-box:hover .small-box-icon {
+    transform: scale(1.1);
+}
+
+/* Color Variants for Small Boxes */
+.small-box.bg-primary {
+    background-color: var(--adminlte-primary) !important;
+    color: white;
+}
+
+.small-box.bg-success {
+    background-color: var(--adminlte-success) !important;
+    color: white;
+}
+
+.small-box.bg-warning {
+    background-color: var(--adminlte-warning) !important;
+    color: #1f2d3d;
+}
+
+.small-box.bg-danger {
+    background-color: var(--adminlte-danger) !important;
+    color: white;
+}
+
+.small-box.bg-info {
+    background-color: var(--adminlte-info) !important;
+    color: white;
+}
+
+/* Gradient Variants */
+.small-box.bg-gradient-primary {
+    background: var(--gradient-primary) !important;
+    color: white;
+}
+
+.small-box.bg-gradient-success {
+    background: var(--gradient-success) !important;
+    color: white;
+}
+
+.small-box.bg-gradient-warning {
+    background: var(--gradient-warning) !important;
+    color: white;
+}
+
+.small-box.bg-gradient-danger {
+    background: var(--gradient-danger) !important;
+    color: white;
+}
+
+.small-box.bg-gradient-info {
+    background: var(--gradient-info) !important;
+    color: white;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .small-box h3 {
+        font-size: 1.6rem;
+    }
+    
+    .small-box .small-box-icon {
+        font-size: 50px;
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
+   VIBRANT ADMINLTE DASHBOARD OVERHAUL
+   ============================================ */
+
+/* Animated Gradient Background */
+body, .fi-body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Sidebar - Vibrant Dark with Gradient */
+.fi-sidebar {
+    background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%) !important;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.3) !important;
+}
+
+.fi-sidebar-nav {
+    padding: 1rem !important;
+}
+
+.fi-sidebar-item-button {
+    border-radius: 0.75rem !important;
+    margin-bottom: 0.5rem !important;
+    transition: all 0.3s ease !important;
+    background: rgba(255,255,255,0.05) !important;
+}
+
+.fi-sidebar-item-button:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    transform: translateX(5px) !important;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4) !important;
+}
+
+.fi-sidebar-item-button.fi-active {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+    box-shadow: 0 4px 15px rgba(240, 147, 251, 0.5) !important;
+}
+
+/* Topbar - Gradient Header */
+.fi-topbar {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+    border: none !important;
+}
+
+.fi-topbar-item-button {
+    color: white !important;
+    transition: all 0.3s ease !important;
+}
+
+.fi-topbar-item-button:hover {
+    background: rgba(255,255,255,0.2) !important;
+    transform: scale(1.1) !important;
+}
+
+/* Main Content Area - Glass Effect */
+.fi-main {
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(10px) !important;
+    border-radius: 1rem !important;
+    margin: 1rem !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1) !important;
+}
+
+/* Cards - Colorful with Shadows */
+.fi-section {
+    background: white !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
+    border: none !important;
+    overflow: hidden !important;
+    transition: all 0.3s ease !important;
+}
+
+.fi-section:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15) !important;
+}
+
+.fi-section-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    padding: 1.5rem !important;
+    border-radius: 1rem 1rem 0 0 !important;
+}
+
+.fi-section-header-heading {
+    color: white !important;
+    font-weight: 700 !important;
+    font-size: 1.25rem !important;
+}
+
+/* Tables - Colorful Rows */
+.fi-ta-table {
+    border-radius: 0.75rem !important;
+    overflow: hidden !important;
+}
+
+.fi-ta-header {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+    color: white !important;
+}
+
+.fi-ta-header-cell {
+    color: white !important;
+    font-weight: 600 !important;
+}
+
+.fi-ta-row:nth-child(even) {
+    background: rgba(102, 126, 234, 0.05) !important;
+}
+
+.fi-ta-row:hover {
+    background: linear-gradient(90deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%) !important;
+    transform: scale(1.01) !important;
+    transition: all 0.2s ease !important;
+}
+
+/* Buttons - Vibrant with Animations */
+.fi-btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4) !important;
+    transition: all 0.3s ease !important;
+}
+
+.fi-btn-primary:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6) !important;
+}
+
+.fi-btn-success {
+    background: linear-gradient(135deg, #0ba360 0%, #3cba92 100%) !important;
+    border: none !important;
+}
+
+.fi-btn-danger {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%) !important;
+    border: none !important;
+}
+
+/* Stats Widgets - Super Colorful */
+.fi-wi-stats-overview-stat {
+    background: white !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
+    border-left: 5px solid !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.fi-wi-stats-overview-stat:nth-child(1) {
+    border-left-color: #0d6efd !important;
+    background: linear-gradient(135deg, rgba(13, 110, 253, 0.1) 0%, rgba(255,255,255,1) 100%) !important;
+}
+
+.fi-wi-stats-overview-stat:nth-child(2) {
+    border-left-color: #20c997 !important;
+    background: linear-gradient(135deg, rgba(32, 201, 151, 0.1) 0%, rgba(255,255,255,1) 100%) !important;
+}
+
+.fi-wi-stats-overview-stat:nth-child(3) {
+    border-left-color: #dc3545 !important;
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.1) 0%, rgba(255,255,255,1) 100%) !important;
+}
+
+.fi-wi-stats-overview-stat:hover {
+    transform: translateY(-10px) scale(1.02) !important;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2) !important;
+}
+
+/* Add Pulse Animation to Stats */
+.fi-wi-stats-overview-stat::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%) !important;
+    opacity: 0 !important;
+    animation: pulse 2s infinite !important;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1); }
+}
+
+/* Forms - Colorful Inputs */
+.fi-input {
+    border: 2px solid #e0e0e0 !important;
+    border-radius: 0.75rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.fi-input:focus {
+    border-color: #667eea !important;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2) !important;
+    transform: scale(1.02) !important;
+}
+
+/* Badges - Vibrant Colors */
+.fi-badge {
+    border-radius: 0.5rem !important;
+    padding: 0.5rem 1rem !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+}
+
+.fi-badge-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.fi-badge-success {
+    background: linear-gradient(135deg, #0ba360 0%, #3cba92 100%) !important;
+}
+
+.fi-badge-danger {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%) !important;
+}
+
+/* Page Header - Gradient */
+.fi-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    padding: 2rem !important;
+    border-radius: 1rem !important;
+    margin-bottom: 2rem !important;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3) !important;
+}
+
+.fi-header-heading {
+    color: white !important;
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+}
+
+/* Breadcrumbs - Colorful */
+.fi-breadcrumbs {
+    background: rgba(255,255,255,0.9) !important;
+    padding: 1rem !important;
+    border-radius: 0.75rem !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05) !important;
+}
+
+.fi-breadcrumbs-item a {
+    color: #667eea !important;
+    transition: all 0.3s ease !important;
+}
+
+.fi-breadcrumbs-item a:hover {
+    color: #764ba2 !important;
+    transform: scale(1.05) !important;
+}
+
+/* Notifications - Animated */
+.fi-notification {
+    border-radius: 1rem !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2) !important;
+    animation: slideIn 0.5s ease !important;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Modals - Glass Effect */
+.fi-modal {
+    backdrop-filter: blur(10px) !important;
+}
+
+.fi-modal-content {
+    border-radius: 1.5rem !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3) !important;
+    border: none !important;
+}
+
+/* Loading Spinner - Colorful */
+.fi-spinner {
+    border-color: #667eea transparent #764ba2 transparent !important;
+    animation: spin 1s linear infinite !important;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Scrollbar - Custom Colorful */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    border: 2px solid rgba(255,255,255,0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #764ba2 0%, #667eea 100%);
+}
+
+/* ============================================
+   COLORFUL SIDEBAR MENU ITEMS (Like Reference Image)
+   ============================================ */
+
+/* Sidebar Navigation Items - Each with Different Color */
+.fi-sidebar-item:nth-child(1) .fi-sidebar-item-button {
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%) !important;
+    border-left: 5px solid #0d6efd !important;
+}
+
+.fi-sidebar-item:nth-child(2) .fi-sidebar-item-button {
+    background: linear-gradient(135deg, #20c997 0%, #198754 100%) !important;
+    border-left: 5px solid #20c997 !important;
+}
+
+.fi-sidebar-item:nth-child(3) .fi-sidebar-item-button {
+    background: linear-gradient(135deg, #fd7e14 0%, #dc6502 100%) !important;
+    border-left: 5px solid #fd7e14 !important;
+}
+
+.fi-sidebar-item:nth-child(4) .fi-sidebar-item-button {
+    background: linear-gradient(135deg, #dc3545 0%, #b02a37 100%) !important;
+    border-left: 5px solid #dc3545 !important;
+}
+
+.fi-sidebar-item:nth-child(5) .fi-sidebar-item-button {
+    background: linear-gradient(135deg, #d63384 0%, #ab296a 100%) !important;
+    border-left: 5px solid #d63384 !important;
+}
+
+.fi-sidebar-item:nth-child(6) .fi-sidebar-item-button {
+    background: linear-gradient(135deg, #6f42c1 0%, #59359a 100%) !important;
+    border-left: 5px solid #6f42c1 !important;
+}
+
+.fi-sidebar-item:nth-child(7) .fi-sidebar-item-button {
+    background: linear-gradient(135deg, #0dcaf0 0%, #0aa2c0 100%) !important;
+    border-left: 5px solid #0dcaf0 !important;
+}
+
+.fi-sidebar-item:nth-child(8) .fi-sidebar-item-button {
+    background: linear-gradient(135deg, #198754 0%, #146c43 100%) !important;
+    border-left: 5px solid #198754 !important;
+}
+
+.fi-sidebar-item:nth-child(9) .fi-sidebar-item-button {
+    background: linear-gradient(135deg, #ffc107 0%, #cc9a06 100%) !important;
+    border-left: 5px solid #ffc107 !important;
+    color: #000 !important;
+}
+
+.fi-sidebar-item:nth-child(10) .fi-sidebar-item-button {
+    background: linear-gradient(135deg, #6c757d 0%, #565e64 100%) !important;
+    border-left: 5px solid #6c757d !important;
+}
+
+/* Sidebar Items Hover - Brighten */
+.fi-sidebar-item .fi-sidebar-item-button:hover {
+    filter: brightness(1.2) !important;
+    transform: translateX(10px) scale(1.05) !important;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3) !important;
+}
+
+/* Active Sidebar Item - Glow Effect */
+.fi-sidebar-item .fi-sidebar-item-button.fi-active {
+    box-shadow: 0 0 20px rgba(255,255,255,0.5), 0 6px 20px rgba(0,0,0,0.3) !important;
+    transform: translateX(10px) scale(1.08) !important;
+    border-left-width: 8px !important;
+}
+
+/* Sidebar Icons - Larger and Colorful */
+.fi-sidebar-item-icon {
+    font-size: 1.5rem !important;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)) !important;
+}
+
+/* Sidebar Labels - Bold */
+.fi-sidebar-item-label {
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+}
+
+/* ============================================
+   FORM HEADERS - COLORFUL GRADIENTS
+   ============================================ */
+
+/* Form Section Headers */
+.fi-fo-section-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    padding: 1.5rem !important;
+    border-radius: 1rem 1rem 0 0 !important;
+    margin-bottom: 1.5rem !important;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
+}
+
+.fi-fo-section-header-heading {
+    color: white !important;
+    font-weight: 700 !important;
+    font-size: 1.5rem !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+
+.fi-fo-section-description {
+    color: rgba(255,255,255,0.9) !important;
+    font-size: 0.95rem !important;
+}
+
+/* Alternate Form Header Colors */
+.fi-fo-section:nth-child(odd) .fi-fo-section-header {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+}
+
+.fi-fo-section:nth-child(3n) .fi-fo-section-header {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+}
+
+.fi-fo-section:nth-child(4n) .fi-fo-section-header {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important;
+}
+
+/* ============================================
+   INPUT FOCUS EFFECTS - STRONG & COLORFUL
+   ============================================ */
+
+/* Text Inputs - Strong Focus */
+.fi-input-wrapper input:focus,
+.fi-input-wrapper textarea:focus,
+.fi-input-wrapper select:focus {
+    border: 3px solid #667eea !important;
+    box-shadow: 0 0 0 5px rgba(102, 126, 234, 0.3), 
+                0 0 20px rgba(102, 126, 234, 0.5) !important;
+    transform: scale(1.02) !important;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(255,255,255,1) 100%) !important;
+    outline: none !important;
+}
+
+/* Input Labels - Colorful on Focus */
+.fi-input-wrapper:focus-within .fi-fo-field-wrp-label {
+    color: #667eea !important;
+    font-weight: 700 !important;
+    transform: scale(1.05) !important;
+    text-shadow: 0 2px 4px rgba(102, 126, 234, 0.2) !important;
+}
+
+/* Input Icons - Animate on Focus */
+.fi-input-wrapper:focus-within .fi-input-wrp-icon {
+    color: #667eea !important;
+    transform: scale(1.2) rotate(5deg) !important;
+    filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.4)) !important;
+}
+
+/* Checkbox & Radio - Colorful */
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border-color: #667eea !important;
+    box-shadow: 0 0 10px rgba(102, 126, 234, 0.5) !important;
+}
+
+/* Select Dropdown - Colorful */
+.fi-select-wrapper:focus-within {
+    border: 3px solid #667eea !important;
+    box-shadow: 0 0 0 5px rgba(102, 126, 234, 0.3) !important;
+    border-radius: 0.75rem !important;
+}
+
+/* ============================================
+   COLORFUL ACTION BUTTONS
+   ============================================ */
+
+/* Primary Action - Blue Gradient */
+.fi-btn-primary,
+button[type="submit"] {
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%) !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(13, 110, 253, 0.4) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 0.75rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.fi-btn-primary:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 6px 20px rgba(13, 110, 253, 0.6) !important;
+    filter: brightness(1.1) !important;
+}
+
+/* Success Button - Green Gradient */
+.fi-btn-success {
+    background: linear-gradient(135deg, #20c997 0%, #198754 100%) !important;
+    box-shadow: 0 4px 15px rgba(32, 201, 151, 0.4) !important;
+}
+
+/* Danger Button - Red Gradient */
+.fi-btn-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #b02a37 100%) !important;
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4) !important;
+}
+
+/* Warning Button - Orange Gradient */
+.fi-btn-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #cc9a06 100%) !important;
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4) !important;
+    color: #000 !important;
+}
+
+/* ============================================
+   COLORFUL TABLE ENHANCEMENTS
+   ============================================ */
+
+/* Table Header - Vibrant Gradient */
+.fi-ta-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3) !important;
+}
+
+/* Table Rows - Alternating Colors */
+.fi-ta-row:nth-child(odd) {
+    background: linear-gradient(90deg, rgba(102, 126, 234, 0.05) 0%, rgba(255,255,255,1) 100%) !important;
+}
+
+.fi-ta-row:nth-child(even) {
+    background: linear-gradient(90deg, rgba(240, 147, 251, 0.05) 0%, rgba(255,255,255,1) 100%) !important;
+}
+
+/* Table Row Hover - Glow Effect */
+.fi-ta-row:hover {
+    background: linear-gradient(90deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%) !important;
+    transform: scale(1.01) !important;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2) !important;
+}
+
+/* ============================================
+   COLORFUL BADGES & TAGS
+   ============================================ */
+
+.fi-badge {
+    padding: 0.5rem 1rem !important;
+    border-radius: 0.75rem !important;
+    font-weight: 700 !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.fi-badge-primary {
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%) !important;
+    color: white !important;
+}
+
+.fi-badge-success {
+    background: linear-gradient(135deg, #20c997 0%, #198754 100%) !important;
+    color: white !important;
+}
+
+.fi-badge-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #b02a37 100%) !important;
+    color: white !important;
+}
+
+.fi-badge-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #cc9a06 100%) !important;
+    color: #000 !important;
+}
+
+/* ============================================
+   COLORFUL CARDS & PANELS
+   ============================================ */
+
+.fi-section {
+    border: none !important;
+    border-radius: 1.5rem !important;
+    overflow: hidden !important;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12) !important;
+    background: white !important;
+}
+
+.fi-section:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.18) !important;
+}
+
+/* Card with Colored Border */
+.fi-section::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 5px !important;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%) !important;
+}
+
+/* ============================================
+   ANIMATED LOADING STATES
+   ============================================ */
+
+.fi-loading {
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #667eea 100%) !important;
+    background-size: 200% 100% !important;
+    animation: shimmer 2s infinite !important;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
