@@ -25,11 +25,12 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'customer_id'     => 'required|exists:customers,id',
-            'date'            => 'required|date',
-            'amount'          => 'required|numeric|min:0.01',
-            'payment_method'  => 'required|string|max:100',
-            'note'            => 'nullable|string',
+            'customer_id' => 'required|exists:customers,id',
+            'date' => 'required|date',
+            'amount' => 'required|numeric|min:0.01',
+            'currency' => 'required|string|size:3',
+            'payment_method' => 'required|string|max:100',
+            'note' => 'nullable|string',
         ]);
 
         $payment = Payment::create($validated);
@@ -44,8 +45,10 @@ class PaymentController extends Controller
 
         // تحديث الـ note اختياري
         $balance->update([
-            'note' => trim("دفعة بقيمة {$payment->amount} - {$payment->date->format('Y-m-d')}")
+            'note' => trim("دفعة بقيمة {$payment->amount} {$payment->currency} - {$payment->date->format('Y-m-d')}"),
+            'currency' => $payment->currency,
         ]);
+        
 
         return redirect()
             ->route('admin.payments.index')
@@ -67,12 +70,12 @@ class PaymentController extends Controller
 
             // تحديث الملاحظة اختياري
             $balance->update([
-                'note' => trim(($balance->note ? $balance->note . ' | ' : '') . "حذف دفعة بقيمة {$amount} (تم طرحها من الرصيد)")
+                'note' => trim(($balance->note ? $balance->note . ' | ' : '') . "حذف دفعة بقيمة {$amount} {$payment->currency} (تم طرحها من الرصيد)")
             ]);
         }
 
         return redirect()
             ->route('admin.payments.index')
-            ->with('warning', "تم حذف الدفعة وقد تم خصم {$amount} من رصيد العميل.");
+            ->with('warning', "تم حذف الدفعة وقد تم خصم {$amount} {$payment->currency} من رصيد العميل.");
     }
 }

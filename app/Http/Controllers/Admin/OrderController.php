@@ -36,6 +36,7 @@ class OrderController extends Controller
         $request->validate([
             'customer_id' => 'required|exists:customers,id',
             'date' => 'required|date',
+            'currency' => 'required|string|size:3',
             'items' => 'required|array|min:1',
             'items.*.product_id' => 'required|exists:products,id',
             'items.*.quantity' => 'required|integer|min:1',
@@ -49,6 +50,7 @@ class OrderController extends Controller
                 'customer_id' => $request->customer_id,
                 'date' => $request->date,
                 'type' => $request->type,
+                'currency' => $request->currency,
                 'total' => 0,
                 'note' => $request->note,
             ]);
@@ -86,7 +88,7 @@ class OrderController extends Controller
 
             DB::commit();
             return redirect()->route('admin.orders.index')
-                ->with('success', 'تم تسجيل الطلب وخصم ' . number_format($grandTotal, 2) . ' ج من الرصيد.');
+                ->with('success', 'تم تسجيل الطلب وخصم ' . number_format($grandTotal, 2) . ' ' . $balance->currency . ' من الرصيد.');
 
         } catch (\Exception $e) {
             DB::rollback();
@@ -116,7 +118,7 @@ class OrderController extends Controller
 
             DB::commit();
             return redirect()->route('admin.orders.index')
-                ->with('warning', 'تم حذف الطلب وإعادة مبلغ ' . number_format($total, 2) . ' ج للرصيد.');
+                ->with('warning', 'تم حذف الطلب وإعادة مبلغ ' . number_format($total, 2) . ' ' . ($balance->currency ?? 'EGP') . ' للرصيد.');
 
         } catch (\Exception $e) {
             DB::rollback();

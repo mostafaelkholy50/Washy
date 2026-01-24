@@ -13,6 +13,7 @@ class Payment extends Model
         'customer_id',
         'date',
         'amount',
+        'currency',
         'payment_method',
         'note',
     ];
@@ -20,6 +21,7 @@ class Payment extends Model
     protected $casts = [
         'date'   => 'date',
         'amount' => 'decimal:2',
+        'currency' => 'string',
     ];
 
     // علاقة: الدفعة تنتمي إلى عميل واحد

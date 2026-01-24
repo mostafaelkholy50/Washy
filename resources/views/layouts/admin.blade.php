@@ -146,7 +146,7 @@
             <div class="sidebar-wrapper">
                 <nav class="mt-2">
                     <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="navigation"
-                        data-accordion="false">
+                        data-accordion="true">
 
                         <li class="nav-item">
                             <a href="{{ route('admin.dashboard') }}"
@@ -155,124 +155,140 @@
                                 <p>الرئيسية</p>
                             </a>
                         </li>
-                        <li class="nav-header">الحركة اليومية</li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.orders.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-cart-check"></i>
-                                <p>طلبات التسليم (Orders)</p>
+
+                        <li class="nav-header">القائمة الرئيسية</li>
+
+                        <li
+                            class="nav-item {{ request()->routeIs('admin.orders.*', 'admin.payments.*', 'admin.customers.*', 'admin.products.*') ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon bi bi- briefcase-fill text-info"></i>
+                                <p>
+                                    إدارة العمليات اليومية
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.orders.index') }}"
+                                        class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-cart-check"></i>
+                                        <p>طلبات التسليم (Orders)</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.payments.index') }}"
+                                        class="nav-link {{ request()->routeIs('admin.payments.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-cash-stack"></i>
+                                        <p>سداد المبالغ (Payments)</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.customers.index') }}"
+                                        class="nav-link {{ request()->routeIs('admin.customers.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-people-fill"></i>
+                                        <p>دليل العملاء</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.products.index') }}"
+                                        class="nav-link {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-box-seam"></i>
+                                        <p>أنواع الملابس/المنتجات</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="{{ route('admin.payments.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.payments.*') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-cash-stack"></i>
-                                <p>سداد المبالغ (Payments)</p>
+                        <li
+                            class="nav-item {{ request()->routeIs('admin.settings.*', 'admin.slides.*', 'admin.services.*', 'admin.portfolios.*', 'admin.posts.*', 'admin.members.*', 'admin.users.*', 'admin.categories.*', 'admin.skills.*', 'admin.timelines.*') ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon bi bi-gear-fill text-warning"></i>
+                                <p>
+                                    إعدادات الموقع
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.settings.edit') }}"
+                                        class="nav-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-sliders"></i>
+                                        <p>الإعدادات العامة</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.slides.index') }}"
+                                        class="nav-link {{ request()->routeIs('admin.slides.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-images"></i>
+                                        <p>الشرائح (السلايدر)</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.services.index') }}"
+                                        class="nav-link {{ request()->routeIs('admin.services.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-gear-wide-connected"></i>
+                                        <p>الخدمات</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.portfolios.index') }}"
+                                        class="nav-link {{ request()->routeIs('admin.portfolios.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-briefcase"></i>
+                                        <p>أعمالنا</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.posts.index') }}"
+                                        class="nav-link {{ request()->routeIs('admin.posts.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-journal-text"></i>
+                                        <p>المقالات</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.members.index') }}"
+                                        class="nav-link {{ request()->routeIs('admin.members.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-people"></i>
+                                        <p>أعضاء الفريق</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.users.index') }}"
+                                        class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-person-badge"></i>
+                                        <p>المستخدمين</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.categories.index') }}"
+                                        class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-tags"></i>
+                                        <p>الأقسام</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.skills.index') }}"
+                                        class="nav-link {{ request()->routeIs('admin.skills.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-lightning"></i>
+                                        <p>المهارات</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.timelines.index') }}"
+                                        class="nav-link {{ request()->routeIs('admin.timelines.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-calendar-event"></i>
+                                        <p>التايم لاين</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="{{ route('admin.customers.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.customers.*') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-people-fill"></i>
-                                <p>دليل العملاء</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.products.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-box-seam"></i>
-                                <p>أنواع الملابس/المنتجات</p>
-                            </a>
-                        </li>
-                        <li class="nav-header">المحتوى</li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.settings.edit') }}"
-                                class="nav-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-gear"></i>
-                                <p>الإعدادات</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-header">المحتوى</li>
-
-                        <li class="nav-item">
-                            <a href="{{ route('admin.slides.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.slides.*') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-images"></i>
-                                <p>الشرائح (السلايدر)</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.services.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.services.*') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-gear-wide-connected"></i>
-                                <p>الخدمات</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.portfolios.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.portfolios.*') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-briefcase"></i>
-                                <p>أعمالنا</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.posts.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.posts.*') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-journal-text"></i>
-                                <p>المقالات</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-header">الإدارة</li>
-
-                        <li class="nav-item">
-                            <a href="{{ route('admin.members.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.members.*') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-people"></i>
-                                <p>أعضاء الفريق</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.users.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-person-badge"></i>
-                                <p>المستخدمين</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-header">النظام</li>
-
-                        <li class="nav-item">
-                            <a href="{{ route('admin.categories.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-tags"></i>
-                                <p>الأقسام</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.skills.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.skills.*') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-lightning"></i>
-                                <p>المهارات</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.timelines.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.timelines.*') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-calendar-event"></i>
-                                <p>التايم لاين</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
+                        <li class="nav-item mt-3">
+                            <hr class="text-secondary">
                             <a href="{{ url('/') }}" class="nav-link" target="_blank">
-                                <i class="nav-icon bi bi-globe"></i>
-                                <p>الموقع لاىىى</p>
+                                <i class="nav-icon bi bi-globe text-success"></i>
+                                <p>عرض الموقع</p>
                             </a>
                         </li>
-
 
                     </ul>
                 </nav>

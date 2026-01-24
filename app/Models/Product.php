@@ -13,12 +13,14 @@ class Product extends Model
         'name',
         'type',
         'price',
+        'currency',
         'note',
     ];
 
     // لو هتستخدم decimal في price، ممكن تضيف cast
     protected $casts = [
         'price' => 'decimal:2',
+        'currency' => 'string',
     ];
 
     // علاقة: المنتج موجود في الكثير من الطلبات

@@ -46,16 +46,17 @@
                                     @foreach($order->items as $item)
                                         <tr>
                                             <td>{{ $item->product->name }}</td>
-                                            <td>{{ number_format($item->unit_price, 2) }} ج</td>
+                                            <td>{{ number_format($item->unit_price, 2) }} {{ $item->currency }}</td>
                                             <td>{{ $item->quantity }}</td>
-                                            <td>{{ number_format($item->subtotal, 2) }} ج</td>
+                                            <td>{{ number_format($item->subtotal, 2) }} {{ $item->currency }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr class="bg-light">
                                         <th colspan="3" class="text-right text-end">الإجمالي النهائي:</th>
-                                        <th class="text-primary">{{ number_format($order->total, 2) }} جنيه</th>
+                                        <th class="text-primary">{{ number_format($order->total, 2) }}
+                                            {{ $order->currency }}</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -84,8 +85,8 @@
                             $message = "فاتورة طلب رقم #{$order->id}\n";
                             $message .= "العميل: {$order->customer->name}\n";
                             $message .= "التاريخ: " . $order->date->format('Y-m-d') . "\n";
-                            $message .= "الإجمالي: " . number_format($order->total, 2) . " ج\n";
-                            $message .= "الرصيد الحالي: " . number_format($order->customer->balance?->amount ?? 0, 2) . " ج\n";
+                            $message .= "الإجمالي: " . number_format($order->total, 2) . " " . $order->currency . "\n";
+                            $message .= "الرصيد الحالي: " . number_format($order->customer->balance?->amount ?? 0, 2) . " " . ($order->customer->balance?->currency ?? 'EGP') . "\n";
                             $message .= "سيتم إرسال الـ PDF إليكم الآن.";
 
                             $whatsapp_url = "https://wa.me/{$whatsapp_number}?text=" . urlencode($message);

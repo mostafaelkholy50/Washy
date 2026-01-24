@@ -32,7 +32,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->type ?? '—' }}</td>
-                                <td>{{ number_format($product->price, 2) }} جنيه</td>
+                                <td>{{ number_format($product->price, 2) }} {{ $product->currency }}</td>
                                 <td>{{ $product->note ?? '—' }}</td>
                                 <td class="project-actions text-right">
                                     <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST"

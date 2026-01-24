@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
-@section('title', 'إضافة دفعة')
+@section('title', 'إضافة رصيد')
 
 @section('content')
     <div class="card card-primary card-outline">
         <div class="card-header">
-            <h3 class="card-title">إضافة دفعة جديدة</h3>
+            <h3 class="card-title">إضافة  </h3>
         </div>
         <form action="{{ route('admin.payments.store') }}" method="POST">
             @csrf
@@ -61,6 +61,22 @@
 
                     <div class="col-md-6">
                         <div class="form-group mb-3">
+                            <label for="currency">العملة <span class="text-danger">*</span></label>
+                            <select name="currency" id="currency" class="form-control @error('currency') is-invalid @enderror" required>
+                                <option value="EGP" {{ old('currency') == 'EGP' ? 'selected' : '' }}>جنيه مصري (EGP)</option>
+                                <option value="USD" {{ old('currency') == 'USD' ? 'selected' : '' }}>دولار أمريكي (USD)</option>
+                                <option value="KWD" {{ old('currency') == 'KWD' ? 'selected' : '' }}>دينار كويتي (KWD)</option>
+                                <option value="SAR" {{ old('currency') == 'SAR' ? 'selected' : '' }}>ريال سعودي (SAR)</option>
+                                <option value="AED" {{ old('currency') == 'AED' ? 'selected' : '' }}>درهم إماراتي (AED)</option>
+                            </select>
+                            @error('currency')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
                             <label for="payment_method">طريقة الدفع <span class="text-danger">*</span></label>
                             <select name="payment_method" id="payment_method"
                                 class="form-control @error('payment_method') is-invalid @enderror" required>
@@ -90,7 +106,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">حفظ الدفعة</button>
+                <button type="submit" class="btn btn-primary">حفظ </button>
                 <a href="{{ route('admin.payments.index') }}" class="btn btn-default float-end">إلغاء</a>
             </div>
         </form>

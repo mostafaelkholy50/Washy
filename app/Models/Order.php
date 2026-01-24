@@ -14,11 +14,14 @@ class Order extends Model
         'customer_id',
         'type',
         'total',
+        'currency',
         'note',
     ];
 
     protected $casts = [
         'date' => 'date',
+        'total' => 'decimal:2',
+        'currency' => 'string',
     ];
 
     public function customer()

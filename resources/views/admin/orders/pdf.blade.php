@@ -102,12 +102,15 @@
     <div class="customer-card">
         <h3>بيانات العميل</h3>
         <p><strong>اسم العميل:</strong> {{ $order->customer->name }}</p>
-        <p><strong>رقم الهاتف:</strong><div style="direction: ltr;">{{ $order->customer->phone }}</div> </p>
+        <p><strong>رقم الهاتف:</strong>
+        <div style="direction: ltr;">{{ $order->customer->phone }}</div>
+        </p>
         <p><strong>العنوان:</strong> {{ $order->customer->area }}، {{ $order->customer->street }}، قطعة
             {{ $order->customer->piece }}، منزل {{ $order->customer->house_number }}
         </p>
         <p class="balance-info"><strong>الرصيد الحالي:</strong>
-            {{ number_format($order->customer->balance?->amount ?? 0, 2) }} ج</p>
+            {{ number_format($order->customer->balance?->amount ?? 0, 2) }}
+            {{ $order->customer->balance?->currency ?? 'EGP' }}</p>
     </div>
 
     <table>
@@ -123,16 +126,16 @@
             @foreach($order->items as $item)
                 <tr>
                     <td>{{ $item->product->name }}</td>
-                    <td>{{ number_format($item->unit_price, 2) }} ج</td>
+                    <td>{{ number_format($item->unit_price, 2) }} {{ $item->currency }}</td>
                     <td>{{ $item->quantity }}</td>
-                    <td>{{ number_format($item->subtotal, 2) }} ج</td>
+                    <td>{{ number_format($item->subtotal, 2) }} {{ $item->currency }}</td>
                 </tr>
             @endforeach
         </tbody>
         <tfoot>
             <tr class="total-row">
                 <td colspan="3" style="text-align: left;">إجمالي الطلب:</td>
-                <td>{{ number_format($order->total, 2) }} جنيه</td>
+                <td>{{ number_format($order->total, 2) }} {{ $order->currency }}</td>
             </tr>
         </tfoot>
     </table>

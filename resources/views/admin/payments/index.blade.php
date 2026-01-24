@@ -8,7 +8,7 @@
             <h3 class="card-title">إدارة المدفوعات</h3>
             <div class="card-tools">
                 <a href="{{ route('admin.payments.create') }}" class="btn btn-primary btn-sm">
-                    <i class="bi bi-plus"></i> إضافة دفعة
+                    <i class="bi bi-plus"></i> إضافة 
                 </a>
             </div>
         </div>
@@ -32,7 +32,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $payment->customer->name ?? '—' }}</td>
                                 <td>{{ $payment->date->format('Y-m-d') }}</td>
-                                <td>{{ number_format($payment->amount, 2) }} جنيه</td>
+                                <td>{{ number_format($payment->amount, 2) }} {{ $payment->currency }}</td>
                                 <td>{{ $payment->payment_method }}</td>
                                 <td>{{ $payment->note ?? '—' }}</td>
                                 <td class="project-actions text-right">

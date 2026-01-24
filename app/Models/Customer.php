@@ -18,13 +18,19 @@ class Customer extends Model
         'piece',
         'house_number',
         'notes',
+        'preferred_currency',
     ];
 
+    protected $casts = [
+        'preferred_currency' => 'string', 
+    ];
     protected static function booted()
     {
         static::created(function (Customer $customer) {
+            $currency = $customer->preferred_currency ?? 'EGP';
             $customer->balance()->create([
                 'amount' => 0.00,
+                'currency' => $currency,
                 'note' => 'رصيد افتتاحي',
             ]);
         });

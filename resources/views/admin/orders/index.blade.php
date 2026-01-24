@@ -31,7 +31,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $order->date->format('Y-m-d') }}</td>
                                 <td>{{ $order->customer->name }}</td>
-                                <td>{{ number_format($order->total, 2) }} ج</td>
+                                <td>{{ number_format($order->total, 2) }} {{ $order->currency }}</td>
                                 <td><span class="badge badge-info text-black">{{ $order->type ?? 'عادي' }}</span></td>
                                 <td class="project-actions text-right">
                                     <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-primary btn-sm">

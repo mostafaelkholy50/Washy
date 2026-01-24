@@ -22,6 +22,7 @@
                             <th>واتساب</th>
                             <th>الموبايل</th>
                             <th>العنوان</th>
+                            <th>العملة</th>
                             <th style="width: 20%">الإجراءات</th>
                         </tr>
                     </thead>
@@ -38,6 +39,9 @@
                                     @if($customer->house_number)
                                         - منزل {{ $customer->house_number }}
                                     @endif
+                                </td>
+                                <td>
+                                    <span class="badge bg-secondary">{{ $customer->preferred_currency }}</span>
                                 </td>
                                 <td class="project-actions text-right">
                                     <form action="{{ route('admin.customers.destroy', $customer->id) }}" method="POST"

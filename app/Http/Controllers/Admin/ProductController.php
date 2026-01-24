@@ -31,10 +31,11 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'   => 'required|string|max:255',
-            'type'   => 'nullable|string|max:100',
-            'price'  => 'required|numeric|min:0',
-            'note'   => 'nullable|string',
+            'name' => 'required|string|max:255',
+            'type' => 'nullable|string|max:100',
+            'price' => 'required|numeric|min:0',
+            'currency' => 'required|string|size:3',
+            'note' => 'nullable|string',
         ]);
 
         Product::create($validated);
@@ -58,10 +59,11 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
-            'name'   => 'required|string|max:255',
-            'type'   => 'nullable|string|max:100',
-            'price'  => 'required|numeric|min:0',
-            'note'   => 'nullable|string',
+            'name' => 'required|string|max:255',
+            'type' => 'nullable|string|max:100',
+            'price' => 'required|numeric|min:0',
+            'currency' => 'required|string|size:3',
+            'note' => 'nullable|string',
         ]);
 
         $product->update($validated);

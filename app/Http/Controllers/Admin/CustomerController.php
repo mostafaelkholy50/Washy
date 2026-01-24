@@ -28,16 +28,16 @@ class CustomerController extends Controller
     /**
      * حفظ عميل جديد
      */
-public function show(Customer $customer)
-{
-    $customer->load([
-        'balance',
-        'orders.items.product',
-        'payments' => fn($q) => $q->latest(),
-    ]);
+    public function show(Customer $customer)
+    {
+        $customer->load([
+            'balance',
+            'orders.items.product',
+            'payments' => fn($q) => $q->latest(),
+        ]);
 
-    return view('admin.customers.show', compact('customer'));
-}
+        return view('admin.customers.show', compact('customer'));
+    }
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -49,6 +49,7 @@ public function show(Customer $customer)
             'piece' => 'nullable|string|max:50',
             'house_number' => 'nullable|string|max:50',
             'notes' => 'nullable|string',
+            'preferred_currency' => 'required|string|size:3',
         ]);
 
         Customer::create($validated);
@@ -80,6 +81,7 @@ public function show(Customer $customer)
             'piece' => 'nullable|string|max:50',
             'house_number' => 'nullable|string|max:50',
             'notes' => 'nullable|string',
+            'preferred_currency' => 'required|string|size:3',
         ]);
 
         $customer->update($validated);
