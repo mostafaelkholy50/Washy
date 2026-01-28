@@ -10,6 +10,7 @@
         "carlos-meneses/laravel-mpdf": "2.1.13",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
+        "omaralalwi/gpdf": "^1.0",
         "spatie/laravel-translatable": "^6.11"
     },
     "require-dev": {
@@ -55,8 +56,8 @@
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi",
-            "@php artisan filament:upgrade"
+            "@php artisan package:discover --ansi"
+
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"

@@ -1,0 +1,55 @@
+/* استايل الهيدر الموحد */
+    .table thead th {
+        background-color: #1e293b;
+        color: #f8fafc;
+        font-weight: 600;
+        text-align: center;
+        border: none;
+        padding: 12px 8px;
+        font-size: 0.9rem;
+    }
+
+
+    .table-responsive {
+        overflow-x: hidden !important;
+    }
+
+    .table {
+        table-layout: fixed;
+        width: 100% !important;
+        margin-bottom: 0;
+        /* direction: ltr; */
+    }
+
+    .table tbody td {
+        text-align: center;
+        vertical-align: middle;
+        padding: 8px 4px;
+        font-size: 0.85rem;
+
+        /* اختصار النصوص الطويلة تلقائياً */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* تمييز الصفوف */
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(0, 0, 0, 0.02);
+    }
+
+    /* تعديلات الموبايل (شاشة أصغر من 768px) */
+    @media (max-width: 768px) {
+        .table thead th {
+            font-size: 0.75rem; /* تصغير الخط في الموبايل */
+            padding: 8px 4px;
+            background-color: #334155; /* لون مختلف سنة للهيدر في الموبايل */
+        }
+        .table tbody td {
+            font-size: 0.7rem; /* تصغير الداتا جداً عشان تبان */
+        }
+        /* التحكم في عرض الأعمدة في الموبايل (مثال) */
+        .col-id { width: 10%; }
+        .col-name { width: 35%; }
+        .col-action { width: 25%; }
+    }

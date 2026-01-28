@@ -22,6 +22,12 @@ class PaymentController extends Controller
         return view('admin.payments.create', compact('customers'));
     }
 
+    public function show(Payment $payment)
+    {
+        $payment->load('customer');
+        return view('admin.payments.show', compact('payment'));
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -48,7 +54,7 @@ class PaymentController extends Controller
             'note' => trim("دفعة بقيمة {$payment->amount} {$payment->currency} - {$payment->date->format('Y-m-d')}"),
             'currency' => $payment->currency,
         ]);
-        
+
 
         return redirect()
             ->route('admin.payments.index')

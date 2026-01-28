@@ -31,7 +31,7 @@ app()->setLocale($currentLang);
         #top-banner { width: 100%; display: block; max-height: 150px; overflow: hidden; }
         #top-banner img { width: 100%; height: 150px; object-fit: cover; display: block; }
         #header { position: sticky; top: 0; z-index: 999; background: #fff; }
-        
+
         /* Except top-banner which needs to be full width */
         #top-banner img { width: 100% !important; }
     </style>
@@ -126,24 +126,24 @@ app()->setLocale($currentLang);
         // Get 'reference' colors from the theme elements
         var topBarColor = window.getComputedStyle(document.querySelector('#top-bar')).backgroundColor;
         var primaryColor = window.getComputedStyle(document.querySelector('.selected') || document.querySelector('a')).color;
-        
+
         // Use the 'primary' color (often Red #e74c3c) for the ticker background to make it stand out like #top-bar
         // Or follow user request: "footer of timeline" -> maybe dark background?
         // But user said "like the rest". #top-bar is background color.
-        
-        // Let's use #top-bar background color for Ticker Background? 
+
+        // Let's use #top-bar background color for Ticker Background?
         // Actually #top-bar is usually the colored strip.
         // Let's use a Dark Background (hardcoded or from footer?) and use the Theme Color for Text/Border.
         // The Footer has background #303030 (Dark).
-        
+
         var footerBg = window.getComputedStyle(document.querySelector('footer .copyright') || document.querySelector('footer')).backgroundColor;
-        
+
         // Apply to Ticker
         var tickerWrapper = document.querySelector('.news-ticker-wrapper');
         if(tickerWrapper) {
             tickerWrapper.style.backgroundColor = 'rgba(30, 30, 30, 0.9)'; // Keep it dark like footer
             tickerWrapper.style.borderBottomColor = topBarColor; // Use theme color for border
-            
+
             var items = document.querySelectorAll('.news-item a');
             items.forEach(function(item) {
                 item.style.color = '#fff'; // White text
@@ -156,7 +156,7 @@ app()->setLocale($currentLang);
     // Run on load and whenever style switcher is clicked
     window.addEventListener('load', syncTickerWithTheme);
     document.addEventListener('DOMContentLoaded', syncTickerWithTheme);
-    
+
     // Observer for style changes (if switcher doesn't trigger event directly)
     // Or just hook into the switcher click if possible.
     // For now, simple interval check or hook into .styleswitcher clicks
@@ -226,7 +226,7 @@ app()->setLocale($currentLang);
             <div class="col-md-12 welcome-note">
                 <h4>{!! nl2br(e($setting->welcome_title ?? "هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى .\n\nبداية الكثير من اصحاب الاعمال .")) !!}</h4>
 
-                <a href="{{ $setting->welcome_btn_1_link ?? '#' }}" class="btn orange scroll-link" data-id="portoflio">{{ $setting->welcome_btn_1_text ?? 'رؤية الاعمال' }}</a> 
+                <a href="{{ $setting->welcome_btn_1_link ?? '#' }}" class="btn orange scroll-link" data-id="portoflio">{{ $setting->welcome_btn_1_text ?? 'رؤية الاعمال' }}</a>
                 <a href="{{ $setting->welcome_btn_2_link ?? '#' }}" class="btn black scroll-link" data-id="contact">{{ $setting->welcome_btn_2_text ?? 'اتصل بنا' }}</a>
             </div>
         </div>

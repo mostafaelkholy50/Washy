@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
 use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
 
@@ -122,22 +123,36 @@ class OrderController extends Controller
 
         } catch (\Exception $e) {
             DB::rollback();
+            return back()->with('error', 'حدث خطأ: ' . $e->getMessage());
         }
     }
 
     public function downloadPdf(Order $order)
     {
         $order->load(['customer.balance', 'items.product']);
-        $pdf = PDF::loadView('admin.orders.pdf', ['order' => $order], [], [
+        $setting = Setting::first();
+
+        $pdf = PDF::loadView('admin.orders.pdf', [
+            'order' => $order,
+            'setting' => $setting
+        ], [], [
             'format' => 'A4',
             'display_mode' => 'fullpage',
+            'default_font' => 'cairo',
             'orientation' => 'P',
-            'margin_left' => 10,
-            'margin_right' => 10,
-            'margin_top' => 10,
-            'margin_bottom' => 10,
+            'margin_left' => 0,
+            'margin_right' => 0,
+            'margin_top' => 0,
+            'margin_bottom' => 0,
             'auto_arabic' => true,
         ]);
+
         return $pdf->download("order-{$order->id}.pdf");
+    }
+    public function printView(Order $order)
+    {
+        $order->load(['customer.balance', 'items.product']);
+
+        return view('admin.orders.print', compact('order'));
     }
 }

@@ -22,6 +22,7 @@
 
     <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="{{ asset('adminlte/css/adminlte.rtl.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('adminlte/css/custom_fixes.css') }}" />
 
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -32,6 +33,74 @@
     <style>
         body {
             font-family: 'Cairo', sans-serif;
+            background-color: #f4f6f9;
+        }
+
+        /* Modern Modal Styling */
+        .modal-content-premium {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-header-premium {
+            background-color: #1e293b;
+            color: white;
+            border-bottom: none;
+            padding: 1.5rem 2rem;
+        }
+
+        .modal-header-premium .btn-close {
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .modal-header-premium .btn-close:hover {
+            opacity: 1;
+            transform: rotate(90deg);
+        }
+
+        .modal-title-premium {
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .modal-body-premium {
+            padding: 2rem;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        /* Loading Spinner */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+        }
+
+        .modern-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #0d6efd;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         /* Mobile Responsiveness Enhancements */
@@ -40,13 +109,16 @@
                 padding: 0.5rem;
             }
 
-            .card-title {
-                font-size: 1rem;
+            .modal-dialog {
+                margin: 0.5rem;
             }
 
-            .btn-sm {
-                padding: 0.4rem 0.6rem;
-                font-size: 0.8rem;
+            .modal-body-premium {
+                padding: 1.5rem 1rem;
+            }
+
+            .modal-header-premium {
+                padding: 1rem 1.5rem;
             }
 
             .table-responsive {
@@ -58,44 +130,80 @@
             }
         }
 
-        /* Responsive Table Cards (optional utility) */
-        .table-cards-mobile tr {
-            display: block;
-            border: 1px solid #dee2e6;
-            margin-bottom: 1rem;
-            border-radius: 0.25rem;
+        /* Custom Scrollbar for Modal */
+        .modal-body-premium::-webkit-scrollbar {
+            width: 6px;
         }
 
-        @media (max-width: 768px) {
-            .table-cards-mobile thead {
-                display: none;
+        .modal-body-premium::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .modal-body-premium::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 10px;
+        }
+
+        .modal-body-premium::-webkit-scrollbar-thumb:hover {
+            background: #aaa;
+        }
+
+        /* Ensure content inside modal looks good */
+        .modal-body-premium .card {
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-body-premium .card-header {
+            background-color: transparent;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1.25rem 1.5rem;
+        }
+
+        .modal-content-fade {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
             }
 
-            .table-cards-mobile td {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                border: none;
-                border-bottom: 1px solid #eee;
-                text-align: left;
-                padding-left: 50% !important;
-                position: relative;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
+        }
+    </style>
+    <style>
+        #top-banner {
+            width: 100%;
+            display: block;
+            max-height: 150px;
+            overflow: hidden;
+        }
 
-            .table-cards-mobile td:before {
-                content: attr(data-label);
-                position: absolute;
-                left: 10px;
-                width: 45%;
-                font-weight: bold;
-                text-align: right;
-            }
+        #top-banner img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+        }
 
-            .table-cards-mobile td:last-child {
-                border-bottom: 0;
-                justify-content: center;
-                padding-left: 0.75rem !important;
-            }
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: #fff;
+        }
+
+        /* Except top-banner which needs to be full width */
+        #top-banner img {
+            width: 100% !important;
         }
     </style>
 
@@ -163,7 +271,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon bi bi- briefcase-fill text-info"></i>
                                 <p>
-                                    إدارة العمليات اليومية
+                                    طلبات
                                     <i class="nav-arrow bi bi-chevron-right"></i>
                                 </p>
                             </a>
@@ -172,7 +280,7 @@
                                     <a href="{{ route('admin.orders.index') }}"
                                         class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
                                         <i class="nav-icon bi bi-cart-check"></i>
-                                        <p>طلبات التسليم (Orders)</p>
+                                        <p>ادارة الطلبات (Orders)</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -300,12 +408,20 @@
             <div class="app-content-header">
                 <div class="container-fluid">
                     <div class="row">
+
+                        @if($setting && $setting->top_banner)
+                            <div id="top-banner" class="col-12 mb-3">
+                                <img src="{{ asset($setting->top_banner) }}" alt="Banner">
+                            </div>
+                        @endif
                         <div class="col-sm-6">
+
                             <h3 class="mb-0">@yield('title')</h3>
                         </div>
                     </div>
                 </div>
             </div>
+
 
             <div class="app-content">
                 <div class="container-fluid">
@@ -334,6 +450,24 @@
         <footer class="app-footer">
             <strong>جميع الحقوق محفوظة &copy; {{ date('Y') }} .</strong>
         </footer>
+    </div>
+
+    <!-- Global Modal for Quick View -->
+    <div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content modal-content-premium">
+                <div class="modal-header modal-header-premium">
+                    <h5 class="modal-title modal-title-premium" id="quickViewModalLabel">التفاصيل</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body modal-body-premium" id="quickViewModalBody">
+                    <div class="loading-container">
+                        <div class="modern-spinner"></div>
+                        <p class="mt-3 text-muted">جاري تحميل البيانات...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Scripts -->
@@ -366,6 +500,87 @@
                     },
                 });
             }
+
+            // Quick View Modal Logic
+            const quickViewModalElement = document.getElementById('quickViewModal');
+            const quickViewModalBody = document.getElementById('quickViewModalBody');
+            const quickViewModalLabel = document.getElementById('quickViewModalLabel');
+            let bootstrapModal = null;
+
+            document.querySelectorAll('.view-trigger').forEach(trigger => {
+                trigger.addEventListener('click', function (e) {
+                    // Don't trigger if clicked on a button or link inside
+                    if (e.target.closest('button') || e.target.closest('a') || e.target.closest('form')) {
+                        return;
+                    }
+
+                    const url = this.getAttribute('data-view-url');
+                    const title = this.getAttribute('data-view-title') || 'التفاصيل';
+                    
+                    if (!url) return;
+
+                    quickViewModalLabel.innerText = title;
+                    quickViewModalBody.innerHTML = `
+                        <div class="loading-container">
+                            <div class="modern-spinner"></div>
+                            <p class="mt-3 text-muted">جاري تحميل البيانات...</p>
+                        </div>
+                    `;
+                    
+                    if (!bootstrapModal) {
+                        bootstrapModal = new bootstrap.Modal(quickViewModalElement);
+                    }
+                    bootstrapModal.show();
+
+                    fetch(url, {
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => response.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        
+                        const content = doc.querySelector('#modal-content-area') || doc.querySelector('.app-content') || doc.body;
+                        
+                        // Clean up content for modal display
+                        content.querySelectorAll('.btn-secondary, .btn-link, .btn-default').forEach(btn => {
+                            const btnText = btn.innerText.trim();
+                            if (btnText.includes('رجوع') || btnText.includes('Back') || btnText.includes('قائمة')) {
+                                btn.remove();
+                            }
+                        });
+
+                        // Make images responsive
+                        content.querySelectorAll('img').forEach(img => {
+                            img.classList.add('img-fluid', 'rounded-3', 'shadow-sm');
+                        });
+
+                        // Set content with a fade-in effect
+                        quickViewModalBody.innerHTML = `<div class="modal-content-fade">${content.innerHTML}</div>`;
+                        
+                        // Re-initialize any components if needed (e.g., tabs)
+                        const tabs = quickViewModalBody.querySelectorAll('[data-bs-toggle="tab"]');
+                        tabs.forEach(tabEl => {
+                            tabEl.addEventListener('click', (e) => {
+                                e.preventDefault();
+                                const tab = new bootstrap.Tab(tabEl);
+                                tab.show();
+                            });
+                        });
+                    })
+                    .catch(error => {
+                        quickViewModalBody.innerHTML = `
+                            <div class="alert alert-danger d-flex align-items-center m-4" role="alert">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                <div>حدث خطأ أثناء تحميل البيانات. يرجى المحاولة مرة أخرى.</div>
+                            </div>
+                        `;
+                        console.error('Error fetching modal content:', error);
+                    });
+                });
+            });
         });
     </script>
     @stack('scripts')

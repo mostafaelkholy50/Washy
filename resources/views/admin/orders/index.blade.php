@@ -8,7 +8,7 @@
             <h3 class="card-title">قائمة الطلبات</h3>
             <div class="card-tools">
                 <a href="{{ route('admin.orders.create') }}" class="btn btn-primary btn-sm">
-                    <i class="bi bi-plus"></i> إضافة طلب جديد
+                    <i class="bi bi-plus"></i> إضافة
                 </a>
             </div>
         </div>
@@ -17,40 +17,31 @@
                 <table class="table table-striped projects">
                     <thead>
                         <tr>
-                            <th style="width: 1%">#</th>
+                            <th>#</th>
+                            <th>رقم الطلب</th>
                             <th>التاريخ</th>
                             <th>العميل</th>
                             <th>الإجمالي</th>
                             <th>النوع</th>
-                            <th style="width: 20%">الإجراءات</th>
+                            <th>الرصيد</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($orders as $order)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td class="view-trigger" data-view-url="{{ route('admin.orders.show', $order->id) }}"
+                                    data-view-title="تفاصيل الطلب #{{ $order->id }}" style="cursor: pointer;">
+                                    {{ $loop->iteration }}</td>
+                                <td >#{{ $order->id }}</td>
                                 <td>{{ $order->date->format('Y-m-d') }}</td>
                                 <td>{{ $order->customer->name }}</td>
                                 <td>{{ number_format($order->total, 2) }} {{ $order->currency }}</td>
                                 <td><span class="badge badge-info text-black">{{ $order->type ?? 'عادي' }}</span></td>
-                                <td class="project-actions text-right">
-                                    <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-primary btn-sm">
-                                        <i class="bi bi-eye"></i> عرض
-                                    </a>
-                                    <form action="{{ route('admin.orders.destroy', $order->id) }}" method="POST"
-                                        style="display: inline-block;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm"
-                                            onclick="return confirm('هل أنت متأكد من حذف الطلب؟ سيتم استرداد المبلغ للعميل')">
-                                            <i class="bi bi-trash"></i> حذف
-                                        </button>
-                                    </form>
-                                </td>
+                                <td>{{ $order->currency }} {{ $order->customer->balance?->amount ?? 0 }}</td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center py-4">لا يوجد طلبات حالياً</td>
+                                <td colspan="7" class="text-center py-4">لا يوجد طلبات حالياً</td>
                             </tr>
                         @endforelse
                     </tbody>

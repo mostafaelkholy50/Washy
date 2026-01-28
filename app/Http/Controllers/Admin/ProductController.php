@@ -25,6 +25,11 @@ class ProductController extends Controller
         return view('admin.products.create');
     }
 
+    public function show(Product $product)
+    {
+        return view('admin.products.show', compact('product'));
+    }
+
     /**
      * حفظ منتج جديد
      */

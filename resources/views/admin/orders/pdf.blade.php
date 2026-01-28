@@ -2,147 +2,279 @@
 <html dir="rtl" lang="ar">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
     <title>فاتورة طلب #{{ $order->id }}</title>
     <style>
         body {
-            font-family: 'sans-serif';
+            font-family: 'Cairo', 'DejaVu Sans', sans-serif;
             direction: rtl;
             text-align: right;
-            color: #333;
+            color: #1f2937;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            background: #ffffff;
+            font-size: 12px;
+            /* تصغير الخط العام */
+            line-height: 1.4;
         }
 
-        .header {
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 15px 25px;
+            /* تقليل padding الحواف */
+            background: #ffffff;
+        }
+
+        /* البانر - نسخة مضغوطة */
+        .banner {
+            width: 100%;
             text-align: center;
-            border-bottom: 2px solid #007bff;
+            margin-bottom: 15px;
+            padding: 8px 0;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border-radius: 8px;
+        }
+
+        .banner img {
+            max-width: 150px;
+            /* صغرنا اللوجو أكتر */
+            height: auto;
+        }
+
+        /* العنوان الرئيسي */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 15px;
             padding-bottom: 10px;
-            margin-bottom: 20px;
+            border-bottom: 2px solid #0d6efd;
         }
 
-        .company-info {
-            float: left;
-            text-align: left;
+        .invoice-title {
+            font-size: 22px;
+            /* صغرنا العنوان */
+            font-weight: 900;
+            color: #1e40af;
+            margin: 0;
         }
 
-        .order-info {
-            float: right;
-            text-align: right;
+        /* بيانات الفاتورة جنب بعض */
+        .invoice-details {
+            display: flex;
+            justify-content: space-around;
+            /* توزيع البيانات جنب بعض */
+            background: #f8f9fc;
+            padding: 8px;
+            border-radius: 6px;
+            margin-bottom: 5px;
         }
 
-        .clearfix {
-            clear: both;
+        .invoice-details .label {
+            font-size: 10px;
+            color: #64748b;
         }
 
-        .customer-card {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            padding: 15px;
-            margin-bottom: 20px;
+        .invoice-details .value {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1e293b;
         }
 
-        .customer-card h3 {
-            margin-top: 0;
-            color: #007bff;
+        /* بيانات العميل - Compact */
+        .customer-info {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
         }
 
-        table {
+        .info-card {
+            flex: 1;
+            background: #f8f9fc;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border-right: 3px solid #0d6efd;
+        }
+
+        .info-card h4 {
+            margin: 0 0 4px 0;
+            font-size: 12px;
+            color: #1e40af;
+        }
+
+        .info-card p {
+            margin: 0;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* جدول المنتجات - Compact */
+        .items-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin-top: 10px;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
-        th,
-        td {
-            border: 1px solid #dee2e6;
-            padding: 10px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #007bff;
+        .items-table thead {
+            background: #0d6efd;
             color: white;
         }
 
-        .footer {
-            margin-top: 30px;
+        .items-table th {
+            padding: 10px;
+            font-size: 13px;
             text-align: center;
+        }
+
+        .items-table td {
+            padding: 10px;
+            border-bottom: 1px solid #f1f5f9;
+            text-align: center;
+        }
+
+        .item-name {
+            font-weight: 700;
+            text-align: right !important;
+        }
+
+        /* الملخص */
+        .summary {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .balance-alert {
+            flex: 1;
+            background: #fef2f2;
+            border-right: 4px solid #ef4444;
+            padding: 10px;
+            border-radius: 6px;
             font-size: 12px;
-            color: #777;
-            border-top: 1px solid #dee2e6;
+            font-weight: 700;
+            color: #991b1b;
+        }
+
+        .totals-box {
+            width: 200px;
+            /* تقليل عرض صندوق الإجمالي */
+            background: #1e40af;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .totals-box .total-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .totals-box .total-value {
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        /* الفوتر */
+        .footer {
+            margin-top: 25px;
             padding-top: 10px;
-        }
-
-        .total-row {
-            font-weight: bold;
-            background-color: #f1f1f1;
-        }
-
-        .balance-info {
-            font-weight: bold;
-            color: #d9534f;
+            border-top: 1px dashed #cbd5e1;
+            text-align: center;
+            color: #64748b;
+            font-size: 11px;
         }
     </style>
 </head>
 
 <body>
-    <div class="header">
-        <h1>فاتورة طلب</h1>
-        <p>رقم الشركة: 98892009</p>
-    </div>
 
-    <div class="clearfix">
-        <div class="order-info">
-            <p><strong>رقم الطلب:</strong> #{{ $order->id }}</p>
-            <p><strong>التاريخ:</strong> {{ $order->date->format('Y-m-d') }}</p>
+    <div class="container">
+
+        @if($setting && $setting->top_banner)
+            <div class="banner">
+                <img src="{{ public_path($setting->top_banner) }}" alt="شعار الشركة">
+            </div>
+        @endif
+
+        <div class="header">
+            <div style="text-align: center; ">
+                <h1 class="invoice-title">فاتورة طلب</h1>
+                <p style="color: #64748b; margin-top: 2px;">رقم الشركة: 98892009</p>
+            </div>
+            <div class="invoice-details">
+                <div class="label">رقم الفاتورة</div>
+                <div class="value">#{{ $order->id }}</div>
+                <div class="label" style="margin-top: 5px;">التاريخ</div>
+                <div class="value">{{ $order->date->format('d/m/Y') }}</div>
+            </div>
         </div>
-    </div>
 
-    <div class="customer-card">
-        <h3>بيانات العميل</h3>
-        <p><strong>اسم العميل:</strong> {{ $order->customer->name }}</p>
-        <p><strong>رقم الهاتف:</strong>
-        <div style="direction: ltr;">{{ $order->customer->phone }}</div>
-        </p>
-        <p><strong>العنوان:</strong> {{ $order->customer->area }}، {{ $order->customer->street }}، قطعة
-            {{ $order->customer->piece }}، منزل {{ $order->customer->house_number }}
-        </p>
-        <p class="balance-info"><strong>الرصيد الحالي:</strong>
-            {{ number_format($order->customer->balance?->amount ?? 0, 2) }}
-            {{ $order->customer->balance?->currency ?? 'EGP' }}</p>
-    </div>
+        <div class="customer-info">
+            <div class="info-card">
+                <h4>العميل</h4>
+                <p>{{ $order->customer->name }}</p>
+            </div>
+            <div class="info-card">
+                <h4>الهاتف</h4>
+                <p style="direction: ltr; text-align: right;">{{ $order->customer->phone }}</p>
+            </div>
+            <div class="info-card">
+                <h4>العنوان</h4>
+                <p>{{ $order->customer->area }}</p>
+            </div>
+        </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>المنتج</th>
-                <th>السعر</th>
-                <th>الكمية</th>
-                <th>الإجمالي</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($order->items as $item)
+        <table class="items-table">
+            <thead>
                 <tr>
-                    <td>{{ $item->product->name }}</td>
-                    <td>{{ number_format($item->unit_price, 2) }} {{ $item->currency }}</td>
-                    <td>{{ $item->quantity }}</td>
-                    <td>{{ number_format($item->subtotal, 2) }} {{ $item->currency }}</td>
+                    <th style="width: 50%;">المنتج</th>
+                    <th>السعر</th>
+                    <th>الكمية</th>
+                    <th>الإجمالي</th>
                 </tr>
-            @endforeach
-        </tbody>
-        <tfoot>
-            <tr class="total-row">
-                <td colspan="3" style="text-align: left;">إجمالي الطلب:</td>
-                <td>{{ number_format($order->total, 2) }} {{ $order->currency }}</td>
-            </tr>
-        </tfoot>
-    </table>
+            </thead>
+            <tbody>
+                @foreach($order->items as $item)
+                    <tr>
+                        <td class="item-name">{{ $item->product->name }}</td>
+                        <td style="text-align: center;">{{ number_format($item->unit_price, 2) }}</td>
+                        <td style="text-align: center;">{{ $item->quantity }}</td>
+                        <td style="text-align: center; font-weight: bold;">{{ number_format($item->subtotal, 2) }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
 
-    <div class="footer">
-        <p>شكراً لتعاملكم معنا</p>
+        <div class="summary">
+            <div>
+                @if($order->customer->balance && $order->customer->balance->amount != 0)
+                    <div class="balance-alert">
+                        الرصيد المتبقي: {{ number_format($order->customer->balance->amount, 2) }} {{ $order->currency }}
+                    </div>
+                @endif
+            </div>
+
+            <div class="totals-box">
+                <div class="total-label">الإجمالي النهائي</div>
+                <div class="total-value">
+                    {{ number_format($order->total, 2) }} {{ $order->currency }}
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>شكرًا لتعاملك معنا</p>
+            <p style="font-size: 9px; color: #94a3b8; margin-top: 2px;">هذه الفاتورة صدرت آليًا</p>
+        </div>
+
     </div>
+
 </body>
 
 </html>

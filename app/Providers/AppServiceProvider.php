@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use App\Models\Setting;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,5 +20,10 @@ class AppServiceProvider extends ServiceProvider
         $locale = session('app_locale', 'ar');
         app()->setLocale($locale);
         config(['app.locale' => $locale]);
+
+        View::composer('admin.*', function ($view) {
+            $setting = Setting::first();
+            $view->with('setting', $setting);
+        });
     }
 }

@@ -75,5 +75,6 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
     //Orders
     Route::get('orders/{order}/pdf', [OrderController::class, 'downloadPdf'])->name('orders.pdf');
+    Route::get('orders/{order}/print', [OrderController::class, 'printView'])->name('orders.print');
     Route::resource('orders', OrderController::class)->names('orders');
 });
