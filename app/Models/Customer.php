@@ -19,10 +19,11 @@ class Customer extends Model
         'house_number',
         'notes',
         'preferred_currency',
+        'currency_id',
     ];
 
     protected $casts = [
-        'preferred_currency' => 'string', 
+        'preferred_currency' => 'string',
     ];
     protected static function booted()
     {
@@ -35,13 +36,16 @@ class Customer extends Model
             ]);
         });
     }
-    // علاقة: عميل لديه الكثير من الطلبات
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
+    }
+
     public function orders()
     {
         return $this->hasMany(Order::class);
     }
 
-    // علاقة: عميل لديه الكثير من المدفوعات
     public function payments()
     {
         return $this->hasMany(Payment::class);

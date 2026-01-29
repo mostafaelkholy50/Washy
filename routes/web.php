@@ -72,9 +72,18 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
     // Payment Routes
     Route::resource('payments', PaymentController::class)->names('payments');
+    Route::get('payments/{payment}/print', [PaymentController::class, 'printView'])
+        ->name('payments.print');
 
     //Orders
     Route::get('orders/{order}/pdf', [OrderController::class, 'downloadPdf'])->name('orders.pdf');
     Route::get('orders/{order}/print', [OrderController::class, 'printView'])->name('orders.print');
     Route::resource('orders', OrderController::class)->names('orders');
+
+    // Currencies
+    Route::post('currencies/{currency}/favorite', [App\Http\Controllers\Admin\CurrencyController::class, 'makeFavorite'])->name('currencies.favorite');
+    Route::resource('currencies', App\Http\Controllers\Admin\CurrencyController::class)->names('currencies');
+    // Balances
+    Route::get('balances', [App\Http\Controllers\Admin\BalanceController::class, 'index'])
+    ->name('balances.index');
 });

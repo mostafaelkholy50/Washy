@@ -14,16 +14,20 @@ class Product extends Model
         'type',
         'price',
         'currency',
+        'currency_id',
         'note',
     ];
 
-    // لو هتستخدم decimal في price، ممكن تضيف cast
     protected $casts = [
         'price' => 'decimal:2',
         'currency' => 'string',
     ];
 
-    // علاقة: المنتج موجود في الكثير من الطلبات
+    public function currency_rel()
+    {
+        return $this->belongsTo(Currency::class, 'currency_id');
+    }
+
     public function orders()
     {
         return $this->hasMany(Order::class);

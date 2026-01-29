@@ -13,6 +13,7 @@ class Balance extends Model
         'customer_id',
         'amount',
         'currency',
+        'currency_id',
         'note',
     ];
 
@@ -20,6 +21,11 @@ class Balance extends Model
         'amount' => 'decimal:2',
         'currency' => 'string',
     ];
+
+    public function currency_rel()
+    {
+        return $this->belongsTo(Currency::class, 'currency_id');
+    }
 
     public function customer()
     {

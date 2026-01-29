@@ -1,15 +1,16 @@
 @extends('layouts.admin')
 
-@section('title', 'إضافة طلب جديد')
+@section('title', 'تعديل طلب #' . $order->id)
 
 @section('content')
-    <div class="card card-primary card-outline">
+    <div class="card card-warning card-outline">
         <div class="card-header">
-            <h3 class="card-title">إضافة طلب</h3>
+            <h3 class="card-title">تعديل طلب #{{ $order->id }}</h3>
         </div>
 
-        <form action="{{ route('admin.orders.store') }}" method="POST" id="order-form">
+        <form action="{{ route('admin.orders.update', $order->id) }}" method="POST" id="order-form">
             @csrf
+            @method('PUT')
 
             <div class="card-body">
 
@@ -20,8 +21,8 @@
                             <select name="customer_id" class="form-control" required>
                                 <option value="">-- اختر العميل --</option>
                                 @foreach($customers as $c)
-                                    <option value="{{ $c->id }}">{{ $c->name }} (رصيد:
-                                        {{ number_format($c->balance->amount ?? 0, 2) }} ج)
+                                    <option value="{{ $c->id }}" {{ $order->customer_id == $c->id ? 'selected' : '' }}>
+                                        {{ $c->name }} (رصيد: {{ number_format($c->balance->amount ?? 0, 2) }} ج)
                                     </option>
                                 @endforeach
                             </select>
@@ -32,7 +33,7 @@
                         <div class="form-group">
                             <label>التاريخ <span class="text-danger">*</span></label>
                             <input type="date" name="date" id="date" class="form-control"
-                                value="{{ now()->format('Y-m-d') }}" required>
+                                value="{{ $order->date->format('Y-m-d') }}" required>
                         </div>
                     </div>
                 </div>
@@ -41,7 +42,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>نوع الطلب</label>
-                            <input type="text" name="type" class="form-control" placeholder="مثال: تسليم فوري">
+                            <input type="text" name="type" class="form-control" value="{{ $order->type }}" placeholder="مثال: تسليم فوري">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -52,7 +53,7 @@
                                 @foreach($currencies as $currency)
                                     <option value="{{ $currency->id }}" 
                                         data-code="{{ $currency->code }}"
-                                        {{ old('currency_id', $favoriteCurrency->id ?? '') == $currency->id ? 'selected' : '' }}>
+                                        {{ $order->currency_id == $currency->id ? 'selected' : '' }}>
                                         {{ $currency->name }} ({{ $currency->code }})
                                     </option>
                                 @endforeach
@@ -70,16 +71,15 @@
                         <h5>المنتجات</h5>
                     </div>
                     <div class="card-body" id="items-container">
-
-                        <!-- صف فارغ أول مرة -->
+                        @foreach($order->items as $index => $item)
                         <div class="item-row row mb-3 border-bottom pb-3">
                             <div class="col-md-5">
                                 <label>المنتج</label>
-                                <select name="items[0][product_id]" class="form-control product-select" required>
+                                <select name="items[{{ $index }}][product_id]" class="form-control product-select" required>
                                     <option value="">-- اختر --</option>
                                     @foreach($products as $p)
-                                        <option value="{{ $p->id }}" data-price="{{ $p->price }}">{{ $p->name }} -
-                                            {{ $p->type }}
+                                        <option value="{{ $p->id }}" data-price="{{ $p->price }}" {{ $item->product_id == $p->id ? 'selected' : '' }}>
+                                            {{ $p->name }} - {{ $p->type }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -87,18 +87,18 @@
 
                             <div class="col-md-3">
                                 <label>الكمية</label>
-                                <input type="number" name="items[0][quantity]" class="form-control quantity text-center" style="" min="1"
-                                    value="1" required>
+                                <input type="number" name="items[{{ $index }}][quantity]" class="form-control quantity text-center" min="1"
+                                    value="{{ $item->quantity }}" required>
                             </div>
                             <div class="col-md-2">
                                 <label>الإجمالي</label>
-                                <input type="text" class="form-control subtotal text-center" readonly>
+                                <input type="text" class="form-control subtotal text-center" value="{{ number_format($item->subtotal, 2, '.', '') }}" readonly>
                             </div>
                             <div class="col-md-2 d-flex align-items-end">
                                 <button type="button" class="btn btn-danger btn-sm remove-item">حذف</button>
                             </div>
                         </div>
-
+                        @endforeach
                     </div>
 
                     <div class="card-footer">
@@ -107,17 +107,18 @@
                 </div>
 
                 <div class="mt-4">
-                    <h4>الإجمالي الكلي: <span id="grand-total">0.00</span> <span id="currency-label">EGP</span></h4>
+                    <h4>الإجمالي الكلي: <span id="grand-total">{{ number_format($order->total, 2, '.', '') }}</span> <span id="currency-label">{{ $order->currency }}</span></h4>
                 </div>
 
                 <div class="form-group mt-3">
                     <label>ملاحظات</label>
-                    <textarea name="note" class="form-control" rows="3"></textarea>
+                    <textarea name="note" class="form-control" rows="3">{{ $order->note }}</textarea>
                 </div>
             </div>
 
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">حفظ الطلب</button>
+                <button type="submit" class="btn btn-warning">تحديث الطلب</button>
+                <a href="{{ route('admin.orders.index') }}" class="btn btn-default">إلغاء</a>
             </div>
         </form>
     </div>
@@ -125,7 +126,7 @@
 
 @push('scripts')
     <script>
-        let itemIndex = 1;
+        let itemIndex = {{ $order->items->count() }};
 
         document.getElementById('add-item').addEventListener('click', function () {
             const container = document.getElementById('items-container');
@@ -147,7 +148,7 @@
                     </div>
                     <div class="col-md-2">
                         <label>الإجمالي</label>
-                        <input type="text" class="form-control subtotal" readonly>
+                        <input type="text" class="form-control subtotal text-center" readonly>
                     </div>
                     <div class="col-md-2 d-flex align-items-end">
                         <button type="button" class="btn btn-danger btn-sm remove-item">حذف</button>
@@ -196,7 +197,7 @@
             document.getElementById('grand-total').textContent = total.toFixed(2);
         }
 
-        // ربط الأحداث للصف الأول
+        // ربط الأحداث لجميع الصفوف الموجودة فعلاً
         attachEvents();
 
         // تحديث تسمية العملة عند تغيير الاختيار

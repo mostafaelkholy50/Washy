@@ -51,19 +51,17 @@
 
                     <div class="col-md-6">
                         <div class="form-group mb-3">
-                            <label for="currency">العملة <span class="text-danger">*</span></label>
-                            <select name="currency" id="currency"
-                                class="form-control @error('currency') is-invalid @enderror" required>
-                                <option value="EGP" {{ old('currency') == 'EGP' ? 'selected' : '' }}>جنيه مصري (EGP)</option>
-                                <option value="USD" {{ old('currency') == 'USD' ? 'selected' : '' }}>دولار أمريكي (USD)
-                                </option>
-                                <option value="KWD" {{ old('currency') == 'KWD' ? 'selected' : '' }}>دينار كويتي (KWD)
-                                </option>
-                                <option value="SAR" {{ old('currency') == 'SAR' ? 'selected' : '' }}>ريال سعودي (SAR)</option>
-                                <option value="AED" {{ old('currency') == 'AED' ? 'selected' : '' }}>درهم إماراتي (AED)
-                                </option>
+                            <label for="currency_id">العملة <span class="text-danger">*</span></label>
+                            <select name="currency_id" id="currency_id"
+                                class="form-control @error('currency_id') is-invalid @enderror" required>
+                                <option value="">اختر العملة</option>
+                                @foreach($currencies as $currency)
+                                    <option value="{{ $currency->id }}" {{ old('currency_id', $favoriteCurrency->id ?? '') == $currency->id ? 'selected' : '' }}>
+                                        {{ $currency->name }} ({{ $currency->code }})
+                                    </option>
+                                @endforeach
                             </select>
-                            @error('currency')
+                            @error('currency_id')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

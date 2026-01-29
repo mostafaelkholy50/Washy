@@ -4,30 +4,54 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Currency;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    /**
-     * عرض كل العملاء
-     */
-    public function index()
+
+    public function index(Request $request)
     {
-        $customers = Customer::latest()->get(); // أو paginate(15) لو عايز ترقيم صفحات
-        return view('admin.customers.index', compact('customers'));
+        $query = Customer::with(['balance', 'currency']);
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('phone_whatsapp', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%")
+                    ->orWhere('area', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('currency_id')) {
+            $query->where('currency_id', $request->currency_id);
+        }
+
+        $sort = $request->get('sort', 'created_at');
+        $direction = $request->get('direction', 'desc');
+        $allowedSorts = ['name', 'created_at', 'area'];
+
+        if (in_array($sort, $allowedSorts)) {
+            $query->orderBy($sort, $direction);
+        } else {
+            $query->latest();
+        }
+
+        $customers = $query->paginate(20)->withQueryString();
+        $currencies = Currency::all();
+
+        return view('admin.customers.index', compact('customers', 'currencies'));
     }
 
-    /**
-     * عرض نموذج إضافة عميل جديد
-     */
+
     public function create()
     {
-        return view('admin.customers.create');
+        $currencies = Currency::all();
+        $favoriteCurrency = Currency::where('is_favorite', true)->first();
+        return view('admin.customers.create', compact('currencies', 'favoriteCurrency'));
     }
 
-    /**
-     * حفظ عميل جديد
-     */
     public function show(Customer $customer)
     {
         $customer->load([
@@ -49,8 +73,14 @@ class CustomerController extends Controller
             'piece' => 'nullable|string|max:50',
             'house_number' => 'nullable|string|max:50',
             'notes' => 'nullable|string',
-            'preferred_currency' => 'required|string|size:3',
+            'preferred_currency' => 'nullable|string|size:3',
+            'currency_id' => 'required|exists:currencies,id',
         ]);
+
+        if (empty($validated['preferred_currency'])) {
+            $currency = Currency::find($validated['currency_id']);
+            $validated['preferred_currency'] = $currency->code;
+        }
 
         Customer::create($validated);
 
@@ -59,17 +89,13 @@ class CustomerController extends Controller
             ->with('success', 'تم إضافة العميل بنجاح.');
     }
 
-    /**
-     * عرض نموذج تعديل العميل
-     */
     public function edit(Customer $customer)
     {
-        return view('admin.customers.edit', compact('customer'));
+        $currencies = Currency::all();
+        return view('admin.customers.edit', compact('customer', 'currencies'));
     }
 
-    /**
-     * تحديث بيانات العميل
-     */
+
     public function update(Request $request, Customer $customer)
     {
         $validated = $request->validate([
@@ -81,8 +107,14 @@ class CustomerController extends Controller
             'piece' => 'nullable|string|max:50',
             'house_number' => 'nullable|string|max:50',
             'notes' => 'nullable|string',
-            'preferred_currency' => 'required|string|size:3',
+            'preferred_currency' => 'nullable|string|size:3',
+            'currency_id' => 'required|exists:currencies,id',
         ]);
+
+        if (empty($validated['preferred_currency'])) {
+            $currency = Currency::find($validated['currency_id']);
+            $validated['preferred_currency'] = $currency->code;
+        }
 
         $customer->update($validated);
 
@@ -91,9 +123,7 @@ class CustomerController extends Controller
             ->with('success', 'تم تحديث بيانات العميل بنجاح.');
     }
 
-    /**
-     * حذف العميل
-     */
+
     public function destroy(Customer $customer)
     {
         $customer->delete();

@@ -14,17 +14,22 @@ class Payment extends Model
         'date',
         'amount',
         'currency',
+        'currency_id',
         'payment_method',
         'note',
     ];
 
     protected $casts = [
-        'date'   => 'date',
+        'date' => 'date',
         'amount' => 'decimal:2',
         'currency' => 'string',
     ];
 
-    // علاقة: الدفعة تنتمي إلى عميل واحد
+    public function currency_rel()
+    {
+        return $this->belongsTo(Currency::class, 'currency_id');
+    }
+
     public function customer()
     {
         return $this->belongsTo(Customer::class);

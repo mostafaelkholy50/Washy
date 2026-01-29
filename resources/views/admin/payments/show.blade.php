@@ -28,13 +28,15 @@
                             <div class="col-sm-6 text-end">
                                 <label class="text-muted small text-uppercase fw-bold mb-1 d-block">المبلغ المحصل</label>
                                 <p class="fw-bold fs-4 mb-0 text-success">{{ number_format($payment->amount, 2) }}
-                                    <small>{{ $payment->currency }}</small></p>
+                                    <small>{{ $payment->currency }}</small>
+                                </p>
                             </div>
                             <div class="col-sm-6 text-end">
                                 <label class="text-muted small text-uppercase fw-bold mb-1 d-block">طريقة الدفع</label>
                                 <div>
-                                    <span
-                                        class="badge bg-success-subtle text-success rounded-pill px-3 py-2 fw-bold">{{ $payment->payment_method }}</span>
+                                    <span class="badge bg-success-subtle text-success rounded-pill px-3 py-2 fw-bold">
+                                        {{ $payment->payment_method }}
+                                    </span>
                                 </div>
                             </div>
                             <div class="col-12 text-end">
@@ -45,17 +47,31 @@
                             </div>
                         </div>
 
-                        <div class="d-flex justify-content-end gap-2 mt-5">
+                        <!-- زراير التحكم -->
+                        <div class="d-flex justify-content-end gap-3 mt-5 flex-wrap">
                             <a href="{{ route('admin.payments.index') }}"
-                                class="btn btn-light rounded-pill px-4 shadow-sm fw-bold">
+                               class="btn btn-light rounded-pill px-4 shadow-sm fw-bold">
                                 <i class="bi bi-arrow-right me-1"></i> رجوع
                             </a>
+
+                            <!-- زر الطباعة الجديد -->
+                            <a href="{{ route('admin.payments.print', $payment->id) }}"
+                               target="_blank"
+                               class="btn btn-success rounded-pill px-4 shadow-sm fw-bold">
+                                <i class="bi bi-printer-fill me-1"></i> طباعة الإيصال
+                            </a>
+
+                            <a href="{{ route('admin.payments.edit', $payment->id) }}"
+                               class="btn btn-warning rounded-pill px-4 shadow-sm fw-bold">
+                                <i class="bi bi-pencil-square me-1"></i> تعديل
+                            </a>
+
                             <form action="{{ route('admin.payments.destroy', $payment->id) }}" method="POST"
-                                class="d-inline">
+                                  class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger rounded-pill px-4 shadow-sm fw-bold"
-                                    onclick="return confirm('هل أنت متأكد من حذف هذه الدفعة؟')">
+                                        onclick="return confirm('هل أنت متأكد من حذف هذه الدفعة؟')">
                                     <i class="bi bi-trash me-1"></i> حذف
                                 </button>
                             </form>

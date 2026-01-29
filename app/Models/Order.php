@@ -9,12 +9,13 @@ class Order extends Model
 {
     use HasFactory;
 
- protected $fillable = [
+    protected $fillable = [
         'date',
         'customer_id',
         'type',
         'total',
         'currency',
+        'currency_id',
         'note',
     ];
 
@@ -23,6 +24,11 @@ class Order extends Model
         'total' => 'decimal:2',
         'currency' => 'string',
     ];
+
+    public function currency_rel()
+    {
+        return $this->belongsTo(Currency::class, 'currency_id');
+    }
 
     public function customer()
     {
@@ -34,7 +40,6 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
-    // إجمالي محسوب (اختياري - للعرض فقط)
     public function getTotalAttribute()
     {
         return $this->items->sum('subtotal');

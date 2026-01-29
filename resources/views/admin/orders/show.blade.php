@@ -65,7 +65,7 @@
                                         <th class="ps-4 py-3">المنتج</th>
                                         <th class="py-3">السعر</th>
                                         <th class="py-3">الكمية</th>
-                                        <th class="py-3 text-end pe-4">الإجمالي</th>
+                                        <th class="py-3 text-end pe-4">المجموع</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -86,7 +86,7 @@
                                 </tbody>
                                 <tfoot class="bg-light-subtle">
                                     <tr class="border-top-2">
-                                        <th colspan="3" class="text-end py-4 pe-3 fs-5">الإجمالي النهائي:</th>
+                                        <th colspan="3" class="text-end py-4 pe-3 fs-5">الإجمالي:</th>
                                         <th class="text-end pe-4 py-4 fs-4 text-primary fw-bold">
                                             {{ number_format($order->total, 2) }} <span
                                                 class="fs-6">{{ $order->currency }}</span>
@@ -105,6 +105,11 @@
                     </a>
 
                     <div class="d-flex gap-2 w-100 w-md-auto">
+                        <a href="{{ route('admin.orders.edit', $order->id) }}"
+                            class="btn btn-warning rounded-pill px-4 flex-grow-1 flex-md-grow-0 shadow-sm font-weight-bold">
+                            <i class="bi bi-pencil-square me-1"></i> تعديل
+                        </a>
+
                         <a href="{{ route('admin.orders.pdf', $order->id) }}"
                             class="btn btn-outline-danger rounded-pill px-4 flex-grow-1 flex-md-grow-0 shadow-sm font-weight-bold">
                             <i class="bi bi-file-earmark-pdf-fill me-1"></i> PDF

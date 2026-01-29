@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Currency;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -11,10 +12,39 @@ class ProductController extends Controller
     /**
      * عرض كل المنتجات
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::latest()->get(); // أو paginate(15) لو عايز ترقيم
-        return view('admin.products.index', compact('products'));
+        $query = Product::with('currency_rel');
+
+        // Search
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('type', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter by Currency
+        if ($request->filled('currency_id')) {
+            $query->where('currency_id', $request->currency_id);
+        }
+
+        // Sorting
+        $sort = $request->get('sort', 'name');
+        $direction = $request->get('direction', 'asc');
+        $allowedSorts = ['name', 'price', 'type'];
+
+        if (in_array($sort, $allowedSorts)) {
+            $query->orderBy($sort, $direction);
+        } else {
+            $query->latest();
+        }
+
+        $products = $query->paginate(20)->withQueryString();
+        $currencies = Currency::all();
+
+        return view('admin.products.index', compact('products', 'currencies'));
     }
 
     /**
@@ -22,7 +52,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        $currencies = Currency::all();
+        $favoriteCurrency = Currency::where('is_favorite', true)->first();
+        return view('admin.products.create', compact('currencies', 'favoriteCurrency'));
     }
 
     public function show(Product $product)
@@ -39,9 +71,15 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'type' => 'nullable|string|max:100',
             'price' => 'required|numeric|min:0',
-            'currency' => 'required|string|size:3',
+            'currency' => 'nullable|string|size:3',
+            'currency_id' => 'required|exists:currencies,id',
             'note' => 'nullable|string',
         ]);
+
+        if (empty($validated['currency'])) {
+            $currency = Currency::find($validated['currency_id']);
+            $validated['currency'] = $currency->code;
+        }
 
         Product::create($validated);
 
@@ -55,7 +93,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('admin.products.edit', compact('product'));
+        $currencies = Currency::all();
+        return view('admin.products.edit', compact('product', 'currencies'));
     }
 
     /**
@@ -67,9 +106,15 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'type' => 'nullable|string|max:100',
             'price' => 'required|numeric|min:0',
-            'currency' => 'required|string|size:3',
+            'currency' => 'nullable|string|size:3',
+            'currency_id' => 'required|exists:currencies,id',
             'note' => 'nullable|string',
         ]);
+
+        if (empty($validated['currency'])) {
+            $currency = Currency::find($validated['currency_id']);
+            $validated['currency'] = $currency->code;
+        }
 
         $product->update($validated);
 
