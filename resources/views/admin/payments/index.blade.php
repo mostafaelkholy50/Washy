@@ -8,7 +8,7 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h3 class="card-title fw-bold text-primary">إدارة المدفوعات</h3>
                 <a href="{{ route('admin.payments.create') }}" class="btn btn-primary rounded-pill px-4 shadow-sm">
-                    <i class="bi bi-plus-lg me-1"></i> إضافة دفعة جديدة
+                    <i class="bi bi-plus-lg me-1"></i> إضافة
                 </a>
             </div>
 

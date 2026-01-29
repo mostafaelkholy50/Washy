@@ -8,7 +8,7 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h3 class="card-title fw-bold text-primary">قائمة المنتجات</h3>
                 <a href="{{ route('admin.products.create') }}" class="btn btn-primary rounded-pill px-4 shadow-sm">
-                    <i class="bi bi-plus-lg me-1"></i> إضافة  
+                    <i class="bi bi-plus-lg me-1"></i> إضافة
                 </a>
             </div>
 
@@ -64,7 +64,8 @@
                     <tbody>
                         @forelse($products as $product)
                             <tr>
-                                <td class="ps-4">
+                                <td class="ps-4 view-trigger" data-view-url="{{ route('admin.products.show', $product->id) }}"
+                                    data-view-title="تفاصيل المنتج" style="cursor: pointer;">
                                     {{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}
                                 </td>
                                 <td class="fw-bold text-dark">{{ $product->name }}</td>

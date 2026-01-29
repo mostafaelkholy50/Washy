@@ -8,10 +8,10 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h3 class="card-title fw-bold text-primary">إدارة العملاء</h3>
                 <a href="{{ route('admin.customers.create') }}" class="btn btn-primary rounded-pill px-4 shadow-sm">
-                    <i class="bi bi-plus-lg me-1"></i> إضافة عميل جديد
+                    <i class="bi bi-plus-lg me-1"></i> إضافة
                 </a>
             </div>
-            
+
             <form action="{{ route('admin.customers.index') }}" method="GET" class="bg-light p-3 rounded-3 mb-2">
                 <div class="row g-2">
                     <div class="col-md-5">

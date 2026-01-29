@@ -8,7 +8,7 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h3 class="card-title fw-bold text-primary">قائمة الطلبات</h3>
                 <a href="{{ route('admin.orders.create') }}" class="btn btn-primary rounded-pill px-4 shadow-sm">
-                    <i class="bi bi-plus-lg me-1"></i> إضافة طلب جديد
+                    <i class="bi bi-plus-lg me-1"></i> إضافة
                 </a>
             </div>
 
@@ -103,7 +103,7 @@
                                         {{ $order->currency_rel->code ?? $order->currency }}
                                     </span>
                                 </td>
-                               
+
                             </tr>
                         @empty
                             <tr>

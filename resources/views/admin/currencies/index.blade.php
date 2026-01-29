@@ -8,7 +8,7 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h3 class="card-title fw-bold text-primary">إدارة العملات</h3>
                 <a href="{{ route('admin.currencies.create') }}" class="btn btn-primary rounded-pill px-4 shadow-sm">
-                    <i class="bi bi-plus-lg me-1"></i> إضافة 
+                    <i class="bi bi-plus-lg me-1"></i> إضافة
                 </a>
             </div>
 
@@ -48,7 +48,8 @@
                     <tbody>
                         @forelse($currencies as $currency)
                             <tr class="{{ $currency->is_favorite ? 'bg-primary-subtle' : '' }}">
-                                <td class="ps-4">{{ $loop->iteration }}</td>
+                                <td class="ps-4" onclick="window.location='{{ route('admin.currencies.edit', $currency->id) }}';"
+                                    style="cursor: pointer;">{{ $loop->iteration }}</td>
                                 <td class="fw-bold text-dark">{{ $currency->name }}</td>
                                 <td><span
                                         class="badge bg-secondary-subtle text-secondary border px-3">{{ $currency->code }}</span>
