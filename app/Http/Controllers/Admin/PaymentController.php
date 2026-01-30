@@ -13,7 +13,7 @@ class PaymentController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Payment::with(['customer', 'currency_rel']);
+        $query = Payment::with(['customer.balance', 'currency_rel']);
 
         // Search
         if ($request->filled('search')) {
@@ -42,6 +42,11 @@ class PaymentController extends Controller
             $query->orderBy($sort, $direction);
         } else {
             $query->orderBy('date', 'desc')->orderBy('id', 'desc');
+        }
+
+        if ($request->has('print')) {
+            $payments = $query->get();
+            return view('admin.payments.print_all', compact('payments'));
         }
 
         $payments = $query->paginate(20)->withQueryString();

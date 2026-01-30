@@ -7,9 +7,15 @@
         <div class="card-header border-bottom-0 pt-4 px-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h3 class="card-title fw-bold text-primary">قائمة الطلبات</h3>
-                <a href="{{ route('admin.orders.create') }}" class="btn btn-primary rounded-pill px-4 shadow-sm">
-                    <i class="bi bi-plus-lg me-1"></i> إضافة
-                </a>
+                <div>
+                    <a href="{{ request()->fullUrlWithQuery(['print' => 1]) }}" target="_blank"
+                        class="btn btn-secondary rounded-pill px-4 shadow-sm">
+                        <i class="bi bi-printer me-1"></i> طباعة الكل
+                    </a>
+                    <a href="{{ route('admin.orders.create') }}" class="btn btn-primary rounded-pill px-4 shadow-sm ms-2">
+                        <i class="bi bi-plus-lg me-1"></i> إضافة
+                    </a>
+                </div>
             </div>
 
             <form action="{{ route('admin.orders.index') }}" method="GET" class="bg-light p-3 rounded-3 mb-2">

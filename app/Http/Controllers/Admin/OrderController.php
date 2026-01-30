@@ -16,7 +16,7 @@ class OrderController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Order::with('customer');
+        $query = Order::with(['customer.balance', 'currency_rel']);
 
         // Search
         if ($request->filled('search')) {
@@ -48,6 +48,11 @@ class OrderController extends Controller
             $query->orderBy($sort, $direction);
         } else {
             $query->orderBy('date', 'desc')->orderBy('id', 'desc');
+        }
+
+        if ($request->has('print')) {
+            $orders = $query->get();
+            return view('admin.orders.print_all', compact('orders'));
         }
 
         $orders = $query->paginate(20)->withQueryString();
