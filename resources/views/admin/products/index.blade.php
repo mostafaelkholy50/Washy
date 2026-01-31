@@ -81,7 +81,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center py-5">
+                                <td colspan="5" class="text-center py-5">
                                     <div class="text-muted">
                                         <i class="bi bi-box display-4 mb-3 d-block"></i>
                                         <p class="fs-5">لا يوجد منتجات تطابق هذا البحث</p>

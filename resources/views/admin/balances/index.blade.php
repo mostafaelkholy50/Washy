@@ -95,7 +95,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="text-center py-5 text-muted">
+                                <td colspan="6" class="text-center py-5 text-muted">
                                     <i class="bi bi-wallet2 display-4 d-block mb-3 opacity-25"></i>
                                     لا يوجد عملاء يطابقون هذا البحث
                                 </td>

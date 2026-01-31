@@ -113,7 +113,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="text-center py-5">
+                                <td colspan="7" class="text-center py-5">
                                     <div class="text-muted">
                                         <i class="bi bi-cart-x display-4 mb-3 d-block"></i>
                                         <p class="fs-5">لا يوجد طلبات تطابق هذا البحث</p>

@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
-use App\Http\Controllers\admin\CustomerController;
-use App\Http\Controllers\admin\ProductController;
-use App\Http\Controllers\admin\PaymentController;
-use App\Http\Controllers\admin\OrderController;
+use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\Admin\OrderController;
 
 Route::get('lang/{locale}', [App\Http\Controllers\LanguageController::class, 'switch'])->name('lang.switch');
 

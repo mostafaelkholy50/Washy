@@ -179,7 +179,10 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                             <li class="user-footer">
-                                <a href="#" class="btn btn-default btn-flat float-end">تسجيل الخروج (Logout)</a>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-default btn-flat w-100 text-start">تسجيل الخروج (Logout)</button>
+                                </form>
                             </li>
                         </ul>
                     </li>
